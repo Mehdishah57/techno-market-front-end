@@ -5,6 +5,7 @@
     border-bottom: 1px solid #707070;
     padding: 20px;
     width: 100%;
+    background-color: white;
 
     ul {
         display: flex;
@@ -25,5 +26,9 @@
         &{
             justify-content: center;
         }
+    }
+    @media only screen and (max-width:1015px) {
+        top: 0;
+        z-index: 99;
     }
 }

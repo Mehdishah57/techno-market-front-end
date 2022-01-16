@@ -1,0 +1,50 @@
+@import "../../base";
+
+.home-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: max-content;
+
+    .search-wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: flex-start;
+        padding: 10px;
+        width: 100%;
+        gap: 10px;
+
+        .b0011{
+            color: black;
+            border-color: $medium-color;
+            font-weight: 400;
+            text-transform: capitalize;
+            width: 60px;
+            height: 57px;
+            border-radius: 5px;
+        }
+    }
+
+    .pages{
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+
+        .page{
+            margin: 0px 5px 0 5px;
+            text-align: center;
+            font-weight: bolder;
+        }
+
+        .back,.next{
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s ease-in-out;
+        }
+        .back:hover, .next:hover{
+            background-color: rgba(0, 0, 0, 0.212);
+        }
+    }
+}

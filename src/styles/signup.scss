@@ -1,13 +1,13 @@
-@import  "../../base";
+@import "../../base";
 
-.login-wrapper{
+.signup-wrapper{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
 
     .sub-wrapper{
         display: flex;
@@ -37,7 +37,7 @@
                 text-align: left;
             }
         }
-    
+
         .form {
             display: flex;
             flex: 500px;
@@ -45,7 +45,7 @@
             justify-content: center;
             align-items: center;
             height: 100%;
-    
+            
             form {
                 display: flex;
                 flex-direction: column;
@@ -56,14 +56,34 @@
                 overflow: hidden;
     
                 div {
-                    margin-bottom: 10px;
-                    max-width: 300px;
+                    margin-bottom: 5px;
+                    max-width: 370px;
                     width: 100%;
-    
                     .f0011{
                         border-color: black;
                     }
-        
+                    .country-code-input{
+                        border: none;
+                        border-bottom: 1px solid $medium-color;
+                        padding: 10px;
+                        width: 45px;
+                        margin-right: 15px;
+                        margin-bottom: 10px;
+
+                        &:focus{
+                            outline: none;
+                        }
+                    }
+                    .phone-number-input{
+                        border: none;
+                        border-bottom: 1px solid $medium-color;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        width: 83.6%;
+                        &:focus{
+                            outline: none;
+                        }
+                    }
                 }
     
                 .b0011{
@@ -73,7 +93,7 @@
                     text-transform: capitalize;
                     width: 100px;
                     height: 45px;
-                    border-radius: 10px;
+                    border-radius: 15px;
                 }
     
                 .button-wrapper{
@@ -94,23 +114,20 @@
                         margin-top: 10px;
                     }
                 }
+            }
 
-                .login-error{
-                    width: 100%;
-                    text-align: center;
-                    font-weight: bold;
-                    color: red;
-                }
+            .signup-error{
+                text-align: center;
+                font-weight: bold;
+                color: red;
             }
         }
     }
-
     @media only screen and (max-width:1015px) {
         .sub-wrapper{
             .text { 
                 height: max-content;
-                margin-top: 20%;
-                
+                margin-top: 30%;margin-bottom: 10%;
                 div{
                     text-align: center;
                 }
