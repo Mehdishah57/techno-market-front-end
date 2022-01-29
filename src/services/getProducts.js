@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const getProducts = async(pageNumber) => {
+const getProducts = async({...rest}) => {
     try {
-        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND}/api/product/?pageNumber=${pageNumber}`)
+        const { data } = await axios.post(`${process.env.REACT_APP_BACKEND}/api/product/`,{...rest})
         return { data, error:null }
     } catch (error) {
         return { error, data:null }

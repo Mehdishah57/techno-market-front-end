@@ -1,0 +1,117 @@
+@import "../../base";
+
+.product-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+
+    .bids{
+        width: 40%;
+    }
+
+    .bid-head{
+        text-align: left;
+        width: 50%;
+        word-wrap: break-word;
+        font-weight: bolder;
+        font-size: 26px;
+        text-transform: capitalize;
+        margin-top: 30px;
+    }
+
+    .description{
+        text-align: left;
+        width: 50%;
+        word-wrap: break-word;
+        font-size: 17px;
+        line-height: 30px;
+        margin-top: 50px;
+    }
+
+    .price{
+        text-align: left;
+        width: 50%;
+        word-wrap: break-word;
+        font-weight: bolder;
+        color: $price;
+        font-size: 22px;
+        margin-top: 10px;
+    }
+
+    .title{
+        text-align: left;
+        width: 50%;
+        word-wrap: break-word;
+        font-weight: bolder;
+        font-size: 26px;
+        text-transform: capitalize;
+    }
+
+    .fullScreen-image{
+        position: absolute;
+        width: 100vh;
+        cursor: pointer;
+        img{
+            width: 100%;
+        }
+    }
+
+    .back{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        gap: 5px;
+    }
+
+    .image-section{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        position: relative;
+        width: 100%;
+        gap: 10px;
+
+        .back,.next{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bolder;
+            color: $medium-color;
+            text-align: center;
+            width: 50px;
+            height: 250px;
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.151);
+            }
+        }
+
+        .image{
+            position: relative;
+            width: 300px;
+            height: 450px;
+            cursor: pointer;
+            overflow: hidden;
+
+            img{
+                position: absolute;
+                width: 100%;
+            }
+        }
+    }
+
+    .seller-name{
+        width: 50%;
+        text-align: left;
+        margin: 30px 0 10px 0;
+        font-weight: 700;
+        font-size: 17px;
+    }
+}

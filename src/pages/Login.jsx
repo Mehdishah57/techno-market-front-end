@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate, Link } from "react-router-dom";
-import Decode  from 'jwt-decode';
 import login from '../services/login';
 import { UserContext } from './../global/UserContext';
 
@@ -14,7 +13,7 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { setState } = useContext(UserContext);
+	const { setUser } = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -26,9 +25,8 @@ const Login = () => {
 		e.preventDefault();
 		const { data, error } = await login(email, password);
 		if (error) return showError(error);
-		localStorage.setItem("fyptoken", data);
-		const user = Decode(data);
-		setState(user);
+		localStorage.setItem("fyptoken", data.token);
+		setUser(data.user);
 		navigate("/home", { replace: true });
 	}
 

@@ -1,0 +1,25 @@
+@import "../../base";
+
+.bid-item{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid $medium-color;
+    padding: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+
+    .icon{
+        border: 2px solid $medium-color;
+        border-radius: 100vh;
+        padding: 20px;
+    }
+
+    .bid-price{
+        color: $price;
+        font-weight: bolder;
+    }
+}

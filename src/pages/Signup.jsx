@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -6,12 +6,15 @@ import signup from './../services/signup';
 import { signupSchema } from "../schemas/signup";
 
 import "../styles/signup.scss";
+import { UserContext } from './../global/UserContext';
 
 const Signup = () => {
     const [state, setState] = useState({
         name:"",email:"",password:"",confirmPassword:"",countryCode:"",phoneNumber:""
     });
     const [displayError, setDisplayError] = useState("");
+
+    const { setUser } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -35,7 +38,8 @@ const Signup = () => {
             await signupSchema.validate({name,email,password,countryCode,phoneNumber});
             const {data, error} = await signup({name,email,password,countryCode,phoneNumber});
             if(error) return showError(error);
-            localStorage.setItem("fyptoken",data);
+            localStorage.setItem("fyptoken",data.token);
+            setUser(data.user)
             navigate("/home");
         }catch(error){
             error && error.name === "ValidationError" && setDisplayError(error.message)

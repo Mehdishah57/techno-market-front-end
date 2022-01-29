@@ -7,6 +7,17 @@
     flex-direction: column;
     height: max-content;
 
+    .home-products-wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 10px;
+        width: 100%;
+        gap: 20px;
+        overflow-x: hidden;
+    }
+
     .search-wrapper{
         display: flex;
         justify-content: center;
