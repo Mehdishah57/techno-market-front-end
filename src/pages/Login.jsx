@@ -13,7 +13,7 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const { setUser } = useContext(UserContext);
+	const [user,setUser] = useContext(UserContext);
 
 	const navigate = useNavigate();
 

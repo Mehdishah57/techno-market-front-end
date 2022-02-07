@@ -13,6 +13,11 @@
         align-items: center;
         max-width: 400px;
         width: 100%;
+
+        .logout-nav{
+            color: #70707070;
+            cursor: pointer;
+        }
     }
 
     .link-active{

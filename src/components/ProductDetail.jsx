@@ -1,74 +1,46 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ProductContext } from './../global/ProductContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import CloseIcon from '@mui/icons-material/Close';
-import BidItem from './BidItem';
+import BidForm from '../utils/BidForm';
+import ProductBids from './ProductBids';
+import ProductImages from './Productmages';
+import fetchProductyById from '../services/fetchProductById';
+import Loader from './Loader';
 
 import "../styles/productdetails.scss";
 
 const ProductDetail = () => {
-	const [image, setImage] = useState("");
-	const [open, setOpen] = useState(false);
+	const [product, setProduct] = useState({});
+	const fetchProduct = useRef();
 
-	const imageRef = useRef(null);
+	const {id} = useParams();
 
-	const { product } = useContext(ProductContext);
+	fetchProduct.current = async() => {
+		const [data, error] = await fetchProductyById(id);
+		if(!error) setProduct(data)
+	}
 
 	const navigate = useNavigate();
 
 	const handleBack = () => navigate(-1);
 
-	const setInitialImage = useRef("");
-
-	setInitialImage.current = () => product?.picture?.image1?.url && 
-									setImage(product.picture.image1.url)
-
 	useEffect(()=>{
-		setInitialImage.current();
+		fetchProduct.current();
 	},[])
 
-	const nextImage = () => {
-		const images = Object.keys(product.picture);
-		if(images.length === 1) return;
-		const currentIndex = images.indexOf(image);
-		if(images[currentIndex+1])
-			setImage(product.picture[images[currentIndex+1]].url)
-	}
-
-	const prevImage = () => {}
-
-	const FullScreenImage = () => (
-		<div className="fullScreen-image">
-			<img onClick={()=>setOpen(false)} src={image} alt={product.title} />
-		</div>
-	)
-
+	if(!product?._id) return <div className="product-wrapper">
+		<Loader width={70} height={70} />
+	</div>
 	return (
 		<div className="product-wrapper">
 			<div className="back" onClick={handleBack}><ArrowBackIcon />Back</div>
-			<div className="image-section">
-				<div className="back" onClick={prevImage}>
-					<ArrowBackIosIcon fontSize="large" />
-				</div>
-				<div ref={imageRef} className="image">
-					<img 
-						onClick={()=>setOpen(true)} 
-						src={image} width="100%" 
-						alt={product.title} 
-					/>
-				</div>
-				<div className="next" onClick={nextImage}>
-					<ArrowForwardIosIcon fontSize="large" />
-				</div>
-			</div>
+			<ProductImages product={product} />
 			<div className="title">{product.title}</div>
 			<div className="price">RS: {product.price}</div>
 			<div className="description">{product.description}</div>
+			<BidForm product={product} />
 			<div className="seller-name">Seller: {product.owner.name}</div>
-			{open && <FullScreenImage />}
+			<ProductBids productId={product._id} />
 		</div>
 	)
 }
