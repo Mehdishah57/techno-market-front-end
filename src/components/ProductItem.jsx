@@ -28,6 +28,7 @@ const ProductItem = (props) => {
 	const Favourite = () => {
 		if(!props?.product?._id) return <div></div>;
 		if(!user._id) return <div></div>
+		if(props?.product?.productOwner) console.log(props.product.productOwner)
 		const favourite = props.product.favourites?.find(element => element === user._id);
 		if(!favourite) return (
 			<div className="favourite" onClick={addToFavourites} >

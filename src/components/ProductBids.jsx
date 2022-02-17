@@ -12,22 +12,28 @@ const ProductBids = ({ productId }) => {
 
   fetchProductBids.current = async () => {
     const [data, error] = await fetchBids(pageNumber, pageSize, productId);
-    if (!error) setBids(data);
+    if (!error) setBids([...bids,...data]);
     if (error) console.log(error.message)
-    console.log(data);
   }
 
   useEffect(() => {
     fetchProductBids.current();
   }, [])
 
-  const handleClick = () => {
-    setPageNumber(prevNo => prevNo + 2)
+  const deleteBids = async(id) => {
+    let temp = bids.filter(bid => bid._id !== id);
+    if(temp.length) setBids(temp);
   }
 
+  const handleClick = () => {
+    if(bids.length === pageSize)
+      setPageNumber(prevNo => prevNo + 2)
+  }
+
+  if(!bids?.length) return null;
   return <div className="product-bids-wrapper">
     <h2>Bids</h2>
-    {bids.map(bid => <BidItem bid={bid} key={JSON.stringify(bid)} />)}
+    {bids.map(bid => <BidItem bid={bid} key={JSON.stringify(bid)} deletebid={deleteBids} />)}
     <Button className="b0011" variant="outlined" onClick={handleClick}>
       Load More
     </Button>

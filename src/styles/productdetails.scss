@@ -7,6 +7,31 @@
     flex-direction: column;
     overflow-x: hidden;
 
+    .delete-bid{
+        padding: 5px;
+        border-radius: 100vh;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+         &:hover{
+             background-color: rgb(250, 202, 202);
+         }
+         &:active{
+             background-color: rgb(250, 134, 134);
+         }
+    }
+
+    .b0011{
+        color: black;
+        border-color: black;
+        font-weight: 400;
+        text-transform: capitalize;
+        border-radius: 5px;
+
+        &:hover{
+            border-color: $medium-color;
+        }
+    }
+
     .product-bids-wrapper{
         display: flex;
         justify-content: center;

@@ -2,9 +2,10 @@
 
 .bid-item{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
+    gap: 10px;
     width: 100%;
     overflow: hidden;
     border: 1px solid $medium-color;
