@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { UserContext } from '../global/UserContext';
 import bidItem from '../services/bidItem';
-import Loader from '../components/Loader';
+import Loader from './Loader';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ErrorIcon from '@mui/icons-material/Error';
 

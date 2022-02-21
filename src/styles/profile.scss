@@ -1,0 +1,51 @@
+@import "../../base";
+
+.profile-wrapper{
+    @include flex();
+    padding: 5px;
+    width: 100%;
+
+    .profile-pic{
+        @include flex();
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+        border-radius: 200px;
+        overflow: hidden;
+
+        img{
+            width: 100%;
+        }
+
+        .input-wrapper{
+            @include flex();
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            bottom: 0px;
+            background-color: $alpha;
+            border-top: 1px solid $primary-color;
+            overflow: hidden;
+
+            input{
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 999;
+                cursor: pointer;
+            }
+
+            .icon{
+                cursor: pointer;
+
+                position: absolute;
+            }
+        }
+    }
+
+    .username{
+        font-weight: bold;
+        font-size: large
+    }
+}

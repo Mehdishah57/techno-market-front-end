@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import BidForm from '../utils/BidForm';
+import BidForm from './BidForm';
 import ProductBids from './ProductBids';
 import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
