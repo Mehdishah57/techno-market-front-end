@@ -13,6 +13,7 @@ const Signup = () => {
         name:"",email:"",password:"",confirmPassword:"",countryCode:"",phoneNumber:""
     });
     const [displayError, setDisplayError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [setUser] = useContext(UserContext);
 
@@ -32,6 +33,7 @@ const Signup = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        setLoading(true);
         const {name,email,password,confirmPassword,countryCode,phoneNumber} = state;
         if(password !== confirmPassword) return showError(null,"Passwords do not match")
         try{
@@ -40,9 +42,10 @@ const Signup = () => {
             if(error) return showError(error);
             localStorage.setItem("fyptoken",data.token);
             setUser(data.user)
-            navigate("/home");
+            navigate("/verify");
         }catch(error){
             error && error.name === "ValidationError" && setDisplayError(error.message)
+            setLoading(false);
         }
     }
 
@@ -127,7 +130,9 @@ const Signup = () => {
                         <div className="button-wrapper">
 							<Button
 								className="b0011"
-								variant="outlined"
+								variant="contained"
+                                color={displayError?"error":"inherit"}
+                                disabled={loading}
 								type="submit"
 							>
 								Sign Up

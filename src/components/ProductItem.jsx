@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from './../global/UserContext';
 import addToFav from './../services/addToFav';
 import removeFromFav from './../services/removeFromFav';
+import ProductImage from './ProductImage';
+
 import "../styles/productitem.scss";
 
 const ProductItem = (props) => {
@@ -15,7 +17,7 @@ const ProductItem = (props) => {
 		navigate(`./${props.product._id}`)
 	}
 
-	const addToFavourites = async() => {
+	const addToFavourites = async() => { 
 		props.markFavourite(props.product._id,user._id)
 		await addToFav(props.product._id);
 	}
@@ -45,12 +47,7 @@ const ProductItem = (props) => {
 	return (
 		<div className="product-item" >
 			<Favourite />
-			<div onClick={handleClick} className="image">
-				<img width="100%"
-					src={props.product.picture?.image1?.url}
-					alt={props.product.title}
-				/>
-			</div>
+			<ProductImage handleClick={handleClick} product={props.product} />
 			<div className="info">
 				<div className="title">{props.product.title}</div>
 				<div className="price">RS: {props.product.price}</div>

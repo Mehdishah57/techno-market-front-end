@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import ForgotPassword from './pages/ForgotPassword';
 import Messages from './pages/Messages';
 import RequireAuth from './utils/RequireAuth';
+import Verify from './pages/Verify';
 
 import "./App.scss";
 
@@ -17,10 +18,11 @@ const App = () => {
     <UserProvider>
       <Navbar />
       <Routes>
-        <Route path="/messages" element={<RequireAuth Element={Messages} />} />
+        <Route path="/messages" element={<RequireAuth Level={2} Element={Messages} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<RequireAuth Element={Profile} />} />
+        <Route path="/profile" element={<RequireAuth Level={2} Element={Profile} />} />
+        <Route path="/verify" element={<RequireAuth Level={1} Element={Verify} />} />
         <Route path="/home/*" element={<Home />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/" element={<Navigate to="/home" />} />
