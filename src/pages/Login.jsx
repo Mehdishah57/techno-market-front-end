@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import login from '../services/login';
 import { UserContext } from './../global/UserContext';
 import { loginSchema } from '../schemas/login';
-
+import { Toaster, toast } from "react-hot-toast";
 import "../styles/login.scss";
 
 
@@ -13,19 +13,23 @@ const Login = () => {
 	const [error, setError] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [loading, setLoading] = useState(false);
 
-	const [user, setUser] = useContext(UserContext);
+	const [,setUser] = useContext(UserContext);
 
 	const navigate = useNavigate();
 
 	const showError = error => {
-		if (error && error.response) return setError(error.response.data);
-		else if (error && error.validationError) return setError(error.message)
+		toast.error(error.response?.data || error.message);
+		setError(error?.response?.data || error?.message);
+		setLoading(false);
 	}
 
 	const handleLogin = async e => {
 		e.preventDefault();
+		if (error) return toast.error("There were errors on the form")
 		try {
+			setLoading(true);
 			await loginSchema.validate({ email, password });
 			const { data, error } = await login(email, password);
 			if (error) return showError(error);
@@ -40,6 +44,7 @@ const Login = () => {
 
 	return (
 		<div className="login-wrapper">
+			<Toaster />
 			<div className="sub-wrapper">
 				<div className="text">
 					<div>
@@ -57,6 +62,7 @@ const Login = () => {
 								id="outlined-basic"
 								margin="dense"
 								label="Email"
+								disabled={loading}
 								variant="outlined"
 								onChange={e => { setEmail(e.currentTarget.value); setError("") }}
 							/>
@@ -67,17 +73,19 @@ const Login = () => {
 								className="f0011"
 								id="outlined-basic"
 								label="Password"
+								disabled={loading}
 								variant="outlined"
 								type="password"
 								onChange={e => { setPassword(e.currentTarget.value); setError("") }}
 							/>
 						</div>
-						{error && <div className="login-error">{error}</div>}
 						<div className="button-wrapper">
 							<Button
 								className="b0011"
-								variant="outlined"
+								variant="contained"
+								color={error ? "error" : "inherit"}
 								type="submit"
+								disabled={loading}
 								onClick={handleLogin}
 							>
 								Sign In

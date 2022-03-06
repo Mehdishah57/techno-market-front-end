@@ -1,7 +1,9 @@
 $medium-color: #707070;
 $primary-color: black;
+$text-color: white;
 $price: rgb(40, 163, 40);
 $alpha: rgba(0, 0, 0, 0.247);
+$blue: #1976d2;
 
 @mixin flex($jc: center, $ai: center, $fd: column, $gp: 10px) {
     display: flex;

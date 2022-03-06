@@ -11,7 +11,7 @@ const SearchSection = (props) => {
 	return (
 		<div className="search-wrapper">
 			<TextField
-				size="medium"
+				size="small"
 				className="f0011"
 				id="outlined-basic"
 				label="Search"
@@ -23,7 +23,8 @@ const SearchSection = (props) => {
 			/>
 			<Button
 				className="b0011"
-				variant="outlined"
+				variant="contained"
+				color="primary"
 				type="submit"
 				onClick={handleSearch}
 			>

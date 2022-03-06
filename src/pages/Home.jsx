@@ -5,6 +5,7 @@ import getProducts from '../services/getProducts';
 import ProductItem from './../components/ProductItem';
 import { Routes, Route } from "react-router-dom";
 import ProductDetail from './../components/ProductDetail';
+import { Toaster, toast } from 'react-hot-toast';
 
 import "../styles/home.scss";
 
@@ -18,6 +19,7 @@ const Home = () => {
 	fetchProducts.current = async (payload) => {
 		const { data, error } = await getProducts(payload);
 		if (error) return console.log(error);
+		if(!data.length) return toast.error("We couldn't find products related to your query")
 		setProducts(data);
 	}
 
@@ -48,6 +50,7 @@ const Home = () => {
 
 	const MainHome = () => (
 		<div className="home-wrapper">
+			<Toaster />
 			<SearchSection search={search} setSearch={setSearch} />
 			<div className="home-products-wrapper">
 				{products.map(product => 
