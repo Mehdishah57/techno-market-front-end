@@ -27,7 +27,7 @@ const Login = () => {
 
 	const handleLogin = async e => {
 		e.preventDefault();
-		if (error) return toast.error("There were errors on the form")
+		if (error) return toast.error(error)
 		try {
 			setLoading(true);
 			await loginSchema.validate({ email, password });

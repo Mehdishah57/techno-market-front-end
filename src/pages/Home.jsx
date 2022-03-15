@@ -32,22 +32,6 @@ const Home = () => {
 
 	const previousPage = () => pageNumber > 1 && setPageNumber(prevNumber => prevNumber - 1)
 
-	const markFavourite = (productId, userId) => {
-		const temp = [...products];
-		const targetProduct = temp.find(product => product._id === productId )
-		if(!targetProduct?.favourites) return targetProduct.favourites = [userId];
-		targetProduct?.favourites?.push(userId);
-		setProducts(temp);
-	}
-
-	const removeFavourite = (productId, userId) => {
-		const temp = [...products];
-		let targetProduct = temp.find(product => product._id === productId )
-		if(!targetProduct?.favourites) return;
-		targetProduct.favourites = targetProduct?.favourites?.filter(id => id !== userId);
-		setProducts(temp);
-	} 
-
 	const MainHome = () => (
 		<div className="home-wrapper">
 			<Toaster />
@@ -57,8 +41,6 @@ const Home = () => {
 				<ProductItem 
 					key={product._id} 
 					product={product}
-					markFavourite={markFavourite}
-					removeFavourite={removeFavourite} 
 				/>)}
 			</div>
 			<HomePageControl

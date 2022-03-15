@@ -6,6 +6,7 @@ import UserNav from './../components/UserNav';
 import MyAds from './MyAds';
 
 import "../styles/profile.scss";
+import Favourites from './Favourites';
 
 const Profile = () => {
 	const [user] = useContext(UserContext);
@@ -17,6 +18,7 @@ const Profile = () => {
 			<Routes>
 				<Route path='/' element={<UserNav />} />
 				<Route path='my-ads' element={<MyAds />}/>
+				<Route path='favourites' element={<Favourites />} />
 			</Routes>
 		</div>
 	)

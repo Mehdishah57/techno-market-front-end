@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import uploadProfilePicture from './../services/uploadProfilePicture';
 import { Toaster, toast } from "react-hot-toast";
 //https://teachablemachine.withgoogle.com/models/gusszBL0s/
+//https://teachablemachine.withgoogle.com/models/wh-52BT_1/
 
 const UserImage = () => {
 	const [image, setImage] = useState(null);
@@ -20,7 +21,7 @@ const UserImage = () => {
 			setImage(e.currentTarget.files[0]);
 			setDisplayImage(URL.createObjectURL(e.currentTarget.files[0]));
 			const toastId = toast.loading('Your image is being processed!')
-			const url = "https://teachablemachine.withgoogle.com/models/gusszBL0s/";
+			const url = "https://teachablemachine.withgoogle.com/models/wh-52BT_1/";
 			let model, maxPredictions;
 			const modelURL = url + "model.json";
 			const metadataURL = url + "metadata.json";
@@ -40,6 +41,7 @@ const UserImage = () => {
 				}
 				return 0;
 			})
+			console.log(prediction);
 			setProcessing(false);
 			toast.dismiss(toastId);
 			toast.success(`Apparently you uploaded a ${fp.name} Picture 😁😁😁`, {duration: 5000})

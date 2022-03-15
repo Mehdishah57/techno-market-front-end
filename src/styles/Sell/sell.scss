@@ -1,0 +1,41 @@
+@import "../../../base";
+
+.sell-wrapper{
+    @include flex();
+    width: 100%;
+
+    .text-wrapper{
+        @include flex();
+        width: 30%;
+        min-width: 250px;
+    }
+
+    .image-wrapper{
+        @include flex($fd: row);
+        flex-wrap: wrap;
+        width: 100%;
+
+        div{
+            @include flex();
+            position: relative;
+            border: 1px solid $primary-color;
+            border-radius: 5px;
+            height: 130px;
+            width: 130px;
+            overflow: hidden;
+
+            img{
+                width: 100%;
+            }
+
+            input{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 99999;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+    }
+}

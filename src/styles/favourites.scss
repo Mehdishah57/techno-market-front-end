@@ -1,0 +1,11 @@
+@import "../../base";
+
+.favourites-wrapper{
+    @include flex();
+    flex-wrap: wrap;
+
+    span{
+        color: $medium-color;
+        font-weight: bolder;
+    }
+}

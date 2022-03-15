@@ -20,7 +20,7 @@
 
         .text {
             display: flex;
-            flex: 500px;
+            // flex: 500px;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -40,7 +40,7 @@
     
         .form {
             display: flex;
-            flex: 500px;
+            // flex: 500px;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -67,13 +67,9 @@
                 }
     
                 .b0011{
-                    // color: black;
-                    // border-color: black;
-                    // font-weight: 400;
                     text-transform: capitalize;
                     width: 100px;
                     height: 45px;
-                    // border-radius: 10px;
                 }
     
                 .button-wrapper{
@@ -94,31 +90,15 @@
                         margin-top: 10px;
                     }
                 }
-
-                .login-error{
-                    width: 100%;
-                    text-align: center;
-                    font-weight: bold;
-                    color: red;
-                }
             }
         }
     }
 
-    @media only screen and (max-width:1015px) {
+    @media only screen and (max-width:620px) {
         .sub-wrapper{
-            .text { 
-                height: max-content;
-                margin-top: 20%;
-                
-                div{
-                    text-align: center;
-                }
-             }
-
-             .form {
-                 height: max-content;
-             }
+            .text{
+                display: none;
+            }
         }
     }
 }

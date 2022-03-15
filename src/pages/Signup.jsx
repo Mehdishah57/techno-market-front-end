@@ -4,9 +4,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import signup from './../services/signup';
 import { signupSchema } from "../schemas/signup";
+import { UserContext } from './../global/UserContext';
 
 import "../styles/signup.scss";
-import { UserContext } from './../global/UserContext';
 
 const Signup = () => {
 	const [state, setState] = useState({
@@ -15,7 +15,7 @@ const Signup = () => {
 	const [displayError, setDisplayError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const [setUser] = useContext(UserContext);
+	const [,setUser] = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -51,7 +51,6 @@ const Signup = () => {
 
 	return (
 		<div className="signup-wrapper">
-
 			<div className="sub-wrapper">
 				<div className="text">
 					<div>
