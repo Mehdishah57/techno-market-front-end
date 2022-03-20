@@ -6,9 +6,9 @@ import ProductBids from './ProductBids';
 import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
 import Loader from './Loader';
+import Map from './Map';
 
 import "../styles/productdetails.scss";
-import MyComponent from './Map';
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState({});
@@ -42,7 +42,7 @@ const ProductDetail = () => {
 			<BidForm product={product} />
 			<div className="seller-name">Seller: {product.owner.name}</div>
 			<ProductBids productId={product._id} />
-			<MyComponent longitude={73.272836} latitude={31.753193} />
+			<Map longitude={product.location.lng} latitude={product.location.lat} />
 		</div>
 	)
 }

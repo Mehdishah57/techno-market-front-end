@@ -1,18 +1,32 @@
 import React from 'react'
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Circle } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
   height: '400px'
 };
 
-function MyComponent({ longitude, latitude }) {
+const options = {
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35,
+  clickable: false,
+  draggable: false,
+  editable: false,
+  visible: true,
+  radius: 30000,
+  zIndex: 1
+}
+
+function Map({ longitude, latitude }) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_MAP_API
   })
 
-  const [map, setMap] = React.useState(null)
+  const [, setMap] = React.useState(null)
 
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)
@@ -21,13 +35,13 @@ function MyComponent({ longitude, latitude }) {
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={{lat:latitude,lng:longitude}}
+        center={{lat:parseInt(latitude),lng:parseInt(longitude)}}
         zoom={8}
         onUnmount={onUnmount}
       >
-          <Marker position={{lat:latitude,lng:longitude}}/>
+          <Circle options={options} center={{lat:parseInt(latitude),lng:parseInt(longitude)}} />
       </GoogleMap>
   ) : <></>
 }
 
-export default MyComponent
+export default Map

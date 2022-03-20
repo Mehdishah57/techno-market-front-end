@@ -14,8 +14,9 @@ const ImageSection = ({ state, setState }) => {
 	const handleChange = e => {
 		if(!e.currentTarget?.files[0]) return;
 		setImage({...image, [e.currentTarget.name]:URL.createObjectURL(e.currentTarget.files[0])})
-		setState({...state, [e.currentTarget.name]:e.currentTarget.files[0]});
-	}
+		setState({...state, picture: { ...state.picture, [e.currentTarget.name]:e.currentTarget.files[0] }});
+    console.log(e.currentTarget.files[0])
+  }
 
   return (
     <div className="image-wrapper">

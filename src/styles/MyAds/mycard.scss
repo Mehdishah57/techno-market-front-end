@@ -1,0 +1,79 @@
+@import "../../../base";
+
+.mycard-wrapper{
+    position: relative;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.281);
+    padding: 10px;
+    width: 240px;
+    height: 290px;
+    border-radius: 10px;
+    gap: 10px;
+    cursor: grab;
+    
+    transition: all 0.2s ease-in-out;
+
+    .menu{
+        position: absolute;
+        top: -35px;
+        @include flex($fd: row);
+        justify-content: center;
+        align-items: center;
+        width: 250px;
+        height: 30px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.281);
+        overflow: hidden;
+        .icons{
+            @include flex();
+            height: 100%;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+    
+    &:hover{
+        background-color: $primary-color;
+        color: white;
+        .price{
+            color: white;
+        }
+    }
+
+    .image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 140px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.1s ease-in-out;
+    }
+
+    .info{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 10px;
+
+        .title{
+            font-size: 14px;
+            font-weight: bolder;
+        }
+        .price{
+            font-size: 14px;
+            color: $price;
+            font-weight: bolder;
+        }
+        .city{
+            font-size: 14px;
+        }
+    }
+
+}

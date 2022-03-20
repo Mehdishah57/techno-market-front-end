@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 
-export default function AlertDialog({open, setOpen, title, message, task}) {
+export default function AlertDialog({open, setOpen, title, message, task, taskArguments}) {
   
     const handleClose = () => {
       setOpen(false);
@@ -30,7 +30,7 @@ export default function AlertDialog({open, setOpen, title, message, task}) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={task} autoFocus>
+            <Button onClick={()=>{task(...taskArguments);handleClose();}}>
               Delete
             </Button>
           </DialogActions>

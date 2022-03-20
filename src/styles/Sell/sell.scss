@@ -4,10 +4,20 @@
     @include flex();
     width: 100%;
 
+    .location-wrapper{
+        width: 95%;
+        max-width: 500px;
+    }
+
+    .category-wrapper{
+        width: 95%;
+        max-width: 500px;
+    }
+
     .text-wrapper{
         @include flex();
-        width: 30%;
-        min-width: 250px;
+        width: 95%;
+        max-width: 500px;
     }
 
     .image-wrapper{

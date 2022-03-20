@@ -4,7 +4,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Toaster, toast } from 'react-hot-toast';
 import getCategories from '../../services/getCategories';
 import { UserContext } from './../../global/UserContext';
 
@@ -27,14 +26,13 @@ const CategorySection = ({ state, setState }) => {
   }, [])
 
   const handleChange = (e,name) => {
-    setState({ ...state, name: e.target.value })
-    name === "mainCategory" ? setMainCategory(e.target.value) : setSubCategory(e.target.value)
+    setState({ ...state, [name]: e.target.value })
+    name === "category" ? setMainCategory(e.target.value) : setSubCategory(e.target.value)
   }
 
   return (
     <div className="category-wrapper">
-      <Toaster />
-      <Box width={200}>
+      <Box >
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Main Category</InputLabel>
           <Select
@@ -42,13 +40,13 @@ const CategorySection = ({ state, setState }) => {
             id="demo-simple-select"
             value={mainCategory}
             label="Age"
-            onChange={(e)=>handleChange(e,"mainCategory")}
+            onChange={(e)=>handleChange(e,"category")}
           >
             {user.categories?.map(item => <MenuItem key={item._id} value={item.name}>{item.name}</MenuItem>)}
           </Select>
         </FormControl>
       </Box>
-      <Box width={200} marginTop={2}>
+      <Box  marginTop={2}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Sub-Category</InputLabel>
           <Select

@@ -18,30 +18,30 @@ const ProductItem = (props) => {
 		navigate(`/home/${props.product._id}`)
 	}
 
-	const addToFavourites = async() => { 
+	const addToFavourites = async () => {
 		const favourites = user.favourites.find(id => id === props.product._id);
-		if(favourites) return toast.error("Item already in favourites! 😁❤️❤️");
-		setUser({...user, favourites: [...user.favourites, props.product._id]})
+		if (favourites) return toast.error("Item already in favourites! 😁❤️❤️");
+		setUser({ ...user, favourites: [...user.favourites, props.product._id] })
 		await addToFav(props.product._id);
 	}
 
-	const removeFromFavourites = async() => {
+	const removeFromFavourites = async () => {
 		const favourites = user.favourites.filter(id => id !== props.product._id);
-		if(!favourites) return toast.error("Item already removed from favourites! 💘💘");
-		setUser({...user, favourites});
+		if (!favourites) return toast.error("Item already removed from favourites! 💘💘");
+		setUser({ ...user, favourites });
 		await removeFromFav(props.product._id);
 	}
 
 	const Favourite = () => {
-		if(!user._id) return <></>
-		if(props.product.owner === user._id) return<></>;
+		if (!user._id) return <></>
+		if (props.product.owner === user._id) return <></>;
 		const favourite = user.favourites?.find(id => id === props.product._id);
-		if(!favourite) return (
+		if (!favourite) return (
 			<div className="favourite" onClick={addToFavourites} >
 				<FavoriteBorderIcon color='error' />
 			</div>
 		)
-		return(
+		return (
 			<div className="favourite" onClick={removeFromFavourites} >
 				<FavoriteIcon color='error' />
 			</div>
@@ -56,7 +56,7 @@ const ProductItem = (props) => {
 			<div className="info">
 				<div className="title">{props.product.title}</div>
 				<div className="price">RS: {props.product.price}</div>
-				<div className="city">{props.product.city}</div>
+				<div className="city">{props.product.location?.city}</div>
 			</div>
 		</div>
 	)

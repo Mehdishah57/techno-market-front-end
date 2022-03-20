@@ -1,0 +1,8 @@
+@import "../../../base";
+
+.myads-wrapper{
+    @include flex($fd: row);
+    flex-wrap: wrap;
+    gap: 40px;
+    width: 100%;
+}
