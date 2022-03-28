@@ -6,6 +6,7 @@ import deleteAd from './../services/deleteAd';
 import AlertDialog from './../components/AlertDialog';
 
 import "../styles/MyAds/myads.scss";
+import activation from '../services/productActivation';
 
 const MyAds = () => {
   const [ads, setAds] = useState([]);
@@ -23,6 +24,15 @@ const MyAds = () => {
   useEffect(()=>{
     fetchAds.current();
   },[])
+
+  const handleActivation = async(id) => {
+    const temp = ads.map(ad => {
+      if(ad._id === id) ad.isActive=!ad.isActive;
+      return ad;
+    })
+    setAds(temp);
+    await activation(id);
+  }
 
   const deleteMyAd = async(id) => {
     const [, error] = await deleteAd(id);
@@ -44,7 +54,7 @@ const MyAds = () => {
         title="Are you sure you want to delete this item? 😗😗😗"
         message="This action is permanent and irreversible 😁😁😁" 
       />
-      {ads.map(item => <MyCard key={item._id} item={item} handleDelete={handleDelete} />)}
+      {ads.map(item => <MyCard key={item._id} item={item} handleActivation={handleActivation} handleDelete={handleDelete} />)}
     </div>
   )
 }

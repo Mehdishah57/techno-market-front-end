@@ -7,6 +7,8 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import "../styles/nav.scss";
 
@@ -33,10 +35,12 @@ const Navbar = () => {
 			<ul className='mid'>
 				{user && !user._id && <li>
 					<NavLink to="/login" className={isActive}>
-						Sign In
+						Sign In <LoginIcon />
 					</NavLink>
 				</li>}
-				{user && !user._id && <li><NavLink to="/signup" className={isActive}>Sign Up</NavLink></li>}
+				{user && !user._id && <li><NavLink to="/signup" className={isActive}>
+					Sign Up <LogoutIcon /></NavLink>
+				</li>}
 			</ul>
 			{user && user._id && <ul className="user">
 				<li className='sell'>

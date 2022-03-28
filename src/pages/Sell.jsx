@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { UserContext } from './../global/UserContext';
 import ImageSection from './../components/Sell/ImageSection';
 import CategorySection from './../components/Sell/CategorySection';
@@ -8,8 +8,10 @@ import Button from '@mui/material/Button';
 import validateProduct from './../schemas/product';
 import LocationSection from './../components/Sell/LocationSection';
 import addProduct from './../services/addProduct';
+import {useParams} from "react-router-dom";
 
 import "../styles/Sell/sell.scss";
+import getMyAd from '../services/getMyAd';
 
 const Sell = () => {
 	const [state, setState] = useState({});
@@ -17,6 +19,8 @@ const Sell = () => {
 	const [loading, setLoading] = useState(false);
 	const [, setError] = useState("");
 	const [user] = useContext(UserContext);
+	const fetchAd = useRef(null);
+	const {id} = useParams();
 
 	const handleClick = async () => {
 		try {
@@ -43,6 +47,23 @@ const Sell = () => {
 		}
 	}
 
+	fetchAd.current = async() => {
+		const [data, error] = await getMyAd(id);
+		if(error) return;
+		setState({title:data.title,
+			price:data.price,
+			description:data.description,
+			category:data.category,
+			subCategory: data.subCategory,
+			picture: data.picture
+		})
+	}
+
+	useLayoutEffect(()=>{
+		if(!id) return;
+		fetchAd.current();
+	},[id])
+
 	useEffect(() => {
 		setState({ owner: user._id })
 	}, [user._id])
@@ -58,6 +79,7 @@ const Sell = () => {
 					id="outlined-basic"
 					sx={{ width: "100%" }}
 					margin="dense"
+					value={state.title}
 					label="Title"
 					variant="outlined"
 					autoComplete="off"
@@ -71,6 +93,7 @@ const Sell = () => {
 					id="outlined-basic"
 					sx={{ width: "100%" }}
 					margin="dense"
+					value={state.price}
 					label="Price"
 					variant="outlined"
 					autoComplete="off"
@@ -80,7 +103,7 @@ const Sell = () => {
 			<CategorySection state={state} setState={setState} />
 			<LocationSection state={state} setState={setState} />
 			<div>
-				<textarea onChange={e => setState({ ...state, description: e.target.value })}>
+				<textarea value={state.description} onChange={e => setState({ ...state, description: e.target.value })}>
 				</textarea>
 			</div>
 			<Button disabled={loading} variant="contained" onClick={handleClick} color={color}>Publish</Button>

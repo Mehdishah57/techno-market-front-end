@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { UserContext } from '../global/UserContext';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import BidForm from './BidForm';
 import ProductBids from './ProductBids';
@@ -7,11 +8,13 @@ import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
 import Loader from './Loader';
 import Map from './Map';
+import bcryptjs from 'bcryptjs';
 
 import "../styles/productdetails.scss";
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState({});
+	const [user] = useContext(UserContext);
 	const fetchProduct = useRef();
 
 	const {id} = useParams();
@@ -39,7 +42,7 @@ const ProductDetail = () => {
 			<div className="title">{product.title}</div>
 			<div className="price">RS: {product.price}</div>
 			<div className="description">{product.description}</div>
-			<BidForm product={product} />
+			{bcryptjs.compareSync(user.verified,process.env.REACT_APP_TRUESECRET) && <BidForm product={product} />}
 			<div className="seller-name">Seller: {product.owner.name}</div>
 			<ProductBids productId={product._id} />
 			<Map longitude={product.location.lng} latitude={product.location.lat} />

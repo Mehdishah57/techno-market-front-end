@@ -22,7 +22,8 @@ const App = () => {
         <Route path="/messages" element={<RequireAuth Level={2} Element={Messages} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/sell/*" element={<RequireAuth Level={2} Element={Sell} />} />
+        <Route path="/sell" element={<RequireAuth Level={2} Element={Sell} />} />
+        <Route path="/sell/:id" element={<RequireAuth Level={2} Element={Sell} />} />
         <Route path="/profile/*" element={<RequireAuth Level={2} Element={Profile} />} />
         <Route path="/verify" element={<RequireAuth Level={1} Element={Verify} />} />
         <Route path="/home/*" element={<Home />} />

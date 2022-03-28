@@ -8,11 +8,11 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import "../../styles/MyAds/mycard.scss";
 
-const MyCard = ({ item, handleDelete }) => {
+const MyCard = ({ item, handleDelete, handleActivation }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`../../${item._id}`);
+    navigate(`/sell/${item._id}`);
   }
 
   return (
@@ -22,8 +22,12 @@ const MyCard = ({ item, handleDelete }) => {
           <CloseIcon color='error' />
         </div>
         <div className='icons'><EditIcon color='info' /></div>
-        <div className='icons'><VisibilityIcon color='success' /></div>
-        <div className='icons'><VisibilityOffIcon color='warning' /></div>
+        {item.isActive && <div onClick={()=>handleActivation(item._id)} className='icons'>
+          <VisibilityIcon color='success' />
+        </div>}
+        {!item.isActive && <div onClick={()=>handleActivation(item._id)} className='icons'>
+          <VisibilityOffIcon color='warning' />
+        </div>}
       </div>
       <ProductImage handleClick={handleClick} product={item} />
       <div className="info">
