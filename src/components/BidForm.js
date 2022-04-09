@@ -56,7 +56,7 @@ const BidForm = ({ product }) => {
 			</Button>
 			{loading && <Loader height={35} width={35} />}
 			{success && <CheckBoxIcon color='success' />}
-			{error && (<><ErrorIcon color='error' /><span style={{color:"red"}}>Error</span></>)}
+			{error && <ErrorIcon color='error' />}
 		</div>
 	)
 }

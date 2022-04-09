@@ -1,0 +1,35 @@
+@import "../../../base";
+
+.chat-wrapper{
+    @include flex();
+    width: auto;
+    padding: 10px;
+    max-height: 80vh;
+
+    .text-wrapper{
+        @include flex();
+        width: 100%;
+        height: 80vh;
+        overflow: auto;
+        .his{
+            align-self: end;
+            border: 1px solid $primary-color;
+            padding: 5px;
+            word-wrap: break-word;
+            border-radius: 10px;
+        }
+    
+        .my{
+            align-self: start;
+            background: $primary-color;
+            padding: 5px;
+            word-wrap: break-word;
+            color: white;border-radius: 10px;
+        }
+    }
+
+    .message-input{
+        @include flex($fd:row);
+        width: 100%;
+    }
+}

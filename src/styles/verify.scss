@@ -1,0 +1,26 @@
+@import "../../base";
+
+.verify-wrapper{
+    @include flex();
+    height: 80vh;
+
+    form{
+        @include flex();
+        gap: 20px;
+
+        .text-field-wrapper{
+            @include flex($fd: row);
+            width: 300px;
+        }
+
+        .button-wrapper{
+            @include flex($fd: row);
+            gap: 10px;
+        }
+
+        .notice{
+            font-size: 13px;
+            color: $medium-color;
+        }
+    }
+}

@@ -7,6 +7,16 @@
     flex-direction: column;
     overflow-x: hidden;
 
+    .actions{
+        @include flex($fd: row,$jc: flex-start);
+        width: 90%;
+        max-width: 520px;
+
+        .icon-wrapper{
+            cursor: pointer;
+        }
+    }
+
     .delete-bid{
         padding: 5px;
         border-radius: 100vh;

@@ -19,7 +19,7 @@ const App = () => {
     <UserProvider>
       <Navbar />
       <Routes>
-        <Route path="/messages" element={<RequireAuth Level={2} Element={Messages} />} />
+        <Route path="/messages/*" element={<RequireAuth Level={2} Element={Messages} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/sell" element={<RequireAuth Level={2} Element={Sell} />} />
