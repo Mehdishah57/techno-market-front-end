@@ -8,10 +8,12 @@ import Button from '@mui/material/Button';
 import validateProduct from './../schemas/product';
 import LocationSection from './../components/Sell/LocationSection';
 import addProduct from './../services/addProduct';
-import {useParams} from "react-router-dom";
+import getMyAd from '../services/getMyAd';
+import { useParams } from "react-router-dom";
 
 import "../styles/Sell/sell.scss";
-import getMyAd from '../services/getMyAd';
+import TextInput from '../components/Sell/TextInput';
+import TextArea from '../components/Sell/TextArea';
 
 const Sell = () => {
 	const [state, setState] = useState({});
@@ -20,7 +22,7 @@ const Sell = () => {
 	const [, setError] = useState("");
 	const [user] = useContext(UserContext);
 	const fetchAd = useRef(null);
-	const {id} = useParams();
+	const { id } = useParams();
 
 	const handleClick = async () => {
 		try {
@@ -40,6 +42,7 @@ const Sell = () => {
 				toast.error(error.response?.data || "An Error occured while posting ad 😒😒😒😒");
 			setColor(error ? "error" : "success");
 		} catch (error) {
+			if (!state?.picture) return toast.error("Atleast one image is required! 😒😒")
 			toast.error(error.message || "An Error occured while posting ad 😒😒😒😒");
 			setColor("error");
 		} finally {
@@ -47,22 +50,23 @@ const Sell = () => {
 		}
 	}
 
-	fetchAd.current = async() => {
+	fetchAd.current = async () => {
 		const [data, error] = await getMyAd(id);
-		if(error) return;
-		setState({title:data.title,
-			price:data.price,
-			description:data.description,
-			category:data.category,
+		if (error) return;
+		setState({
+			title: data.title,
+			price: data.price,
+			description: data.description,
+			category: data.category,
 			subCategory: data.subCategory,
 			picture: data.picture
 		})
 	}
 
-	useLayoutEffect(()=>{
-		if(!id) return;
+	useLayoutEffect(() => {
+		if (!id) return;
 		fetchAd.current();
-	},[id])
+	}, [id])
 
 	useEffect(() => {
 		setState({ owner: user._id })
@@ -72,40 +76,16 @@ const Sell = () => {
 		<div className="sell-wrapper">
 			<Toaster />
 			<ImageSection state={state} setState={setState} />
-			<div className='text-wrapper'>
-				<TextField
-					size="medium"
-					className="f0011"
-					id="outlined-basic"
-					sx={{ width: "100%" }}
-					margin="dense"
-					value={state.title}
-					label="Title"
-					variant="outlined"
-					autoComplete="off"
-					onChange={e => { setState({ ...state, title: e.currentTarget.value }); setError(""); setColor("inherit") }}
-				/>
-			</div>
-			<div className='text-wrapper'>
-				<TextField
-					size="medium"
-					className="f0011"
-					id="outlined-basic"
-					sx={{ width: "100%" }}
-					margin="dense"
-					value={state.price}
-					label="Price"
-					variant="outlined"
-					autoComplete="off"
-					onChange={e => { setState({ ...state, price: e.currentTarget.value }); setError(""); setColor("inherit") }}
-				/>
-			</div>
+			<TextInput value={state.title} label="title" state={state} setState={setState} />
+			<TextInput value={state.price} label="price" state={state} setState={setState} />
 			<CategorySection state={state} setState={setState} />
 			<LocationSection state={state} setState={setState} />
-			<div>
-				<textarea value={state.description} onChange={e => setState({ ...state, description: e.target.value })}>
-				</textarea>
-			</div>
+			<TextArea 
+				value={state.description} 
+				placeholder="Description..." 
+				state={state} 
+				setState={setState}
+				/>
 			<Button disabled={loading} variant="contained" onClick={handleClick} color={color}>Publish</Button>
 		</div>
 	)

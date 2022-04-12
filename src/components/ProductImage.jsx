@@ -11,7 +11,11 @@ const ProductImage = ({handleClick, product}) => {
                 style={{ opacity: loaded ? 1 : 0 }}
                 onLoad={() => setLoaded(true)}
             />
-            {!loaded && <Skeleton sx={{ position: 'absolute' }} variant="rectangular" width={400} height={200} />}
+            {!loaded && <Skeleton sx={{ position: 'absolute' }} 
+                variant="rectangular" 
+                width={220} 
+                height={150} 
+            />}
         </div>
     )
 }

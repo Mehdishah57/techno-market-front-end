@@ -4,9 +4,9 @@ import { UserContext } from './../global/UserContext';
 import UserImage from '../components/UserImage';
 import UserNav from './../components/UserNav';
 import MyAds from './MyAds';
+import Favourites from './Favourites';
 
 import "../styles/profile.scss";
-import Favourites from './Favourites';
 
 const Profile = () => {
 	const [user] = useContext(UserContext);

@@ -7,9 +7,9 @@ import addToFav from './../services/addToFav';
 import removeFromFav from './../services/removeFromFav';
 import ProductImage from './ProductImage';
 import { Toaster, toast } from 'react-hot-toast';
+import bcryptjs from 'bcryptjs';
 
 import "../styles/productitem.scss";
-import bcryptjs from 'bcryptjs';
 
 const ProductItem = (props) => {
 	const [user, setUser] = useContext(UserContext);

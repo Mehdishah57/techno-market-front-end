@@ -17,15 +17,24 @@ const Chat = () => {
   const [user] = useContext(UserContext);
   const [chat, setChat] = useState({ messages: [] });
   const fetchChat = useRef(null);
+  const divRef = useRef(null);
+  const scrollToBottom = useRef(null);
   const {id} = useParams();
+
+  scrollToBottom.current = () => {
+    divRef.current?.scrollIntoView({ behavior: "smooth" })
+    console.log(divRef.current?.scrollIntoView)
+  }
 
   fetchChat.current = async () => {
     const [data, error] = await getChat(id);
     if (error) toast.error("We couldn't fetch your messages! 😥😥😥");
     else setChat(data);
+    console.log(error?.response?.data || JSON.stringify(error))
     setLoading(false);
+    let otherUser = data?.idOne.toString() === user._id ? data?.idTwo.toString() : data?.idOne.toString();
     socket.off("notification").on("notification", data => {
-      if (data.sender === user.otherUserChatId) return;
+      if (data.sender === otherUser) return;
       toast.success(`${data.name}: ${data.message}`, { duration: 5000 })
     })
   }
@@ -41,6 +50,10 @@ const Chat = () => {
     }
   }, [])
 
+  useEffect(()=>{
+    scrollToBottom.current();
+  },[chat])
+
   useEffect(() => {
     if(chat.messages.length){
       socket.off("user-message").on("user-message", data => {
@@ -55,9 +68,10 @@ const Chat = () => {
   },[chat.messages.length])
 
   const handleSubmit = async () => {
-    const [, error] = await sendMessage(user.otherUserChatId, message);
+    let otherUser = chat.idOne.toString() === user._id ? chat.idTwo.toString() : chat.idOne.toString();
+    const [, error] = await sendMessage(otherUser, message);
     if (error) return toast.error("We are unable to deliever your message! 😗😗😗");
-    socket.emit("message", { id: user.otherUserChatId, message, name: user.name, sender: user._id })
+    socket.emit("message", { id: otherUser, message, name: user.name, sender: user._id })
   }
 
   if (loading) return <div className="chat-wrapper">
@@ -66,7 +80,7 @@ const Chat = () => {
   return (
     <div className="chat-wrapper">
       <Toaster />
-      <div className='text-wrapper'>
+      <div ref={divRef} className='text-wrapper'>
         {chat.messages.map((item, index) => item.by === user._id ?
           <div key={index} className="my">{item.message}</div> :
           <div key={index} className="his">{item.message}</div>)}
