@@ -36,7 +36,7 @@ const ProductItem = (props) => {
 	const Favourite = () => {
 		if (!user._id) return <></>
 		if (props.product.owner === user._id) return <></>;
-		if (!bcryptjs.compareSync(user.verified, process.env.REACT_APP_TRUESECRET)) return <></>
+		// if (!bcryptjs.compareSync(user.verified, process.env.REACT_APP_TRUESECRET)) return <></>
 		const favourite = user.favourites?.find(id => id === props.product._id);
 		if (!favourite) return (
 			<div className="favourite" onClick={addToFavourites} >
