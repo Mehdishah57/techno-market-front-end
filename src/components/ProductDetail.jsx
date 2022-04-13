@@ -10,9 +10,9 @@ import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
 import Loader from './Loader';
 import Map from './Map';
+import FormDialog from './FormDialog';
 
 import "../styles/productdetails.scss";
-import FormDialog from './FormDialog';
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState({});

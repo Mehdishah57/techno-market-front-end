@@ -7,7 +7,6 @@ import addToFav from './../services/addToFav';
 import removeFromFav from './../services/removeFromFav';
 import ProductImage from './ProductImage';
 import { Toaster, toast } from 'react-hot-toast';
-import bcryptjs from 'bcryptjs';
 
 import "../styles/productitem.scss";
 
@@ -36,7 +35,6 @@ const ProductItem = (props) => {
 	const Favourite = () => {
 		if (!user._id) return <></>
 		if (props.product.owner === user._id) return <></>;
-		// if (!bcryptjs.compareSync(user.verified, process.env.REACT_APP_TRUESECRET)) return <></>
 		const favourite = user.favourites?.find(id => id === props.product._id);
 		if (!favourite) return (
 			<div className="favourite" onClick={addToFavourites} >

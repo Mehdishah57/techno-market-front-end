@@ -15,12 +15,12 @@ const BidItem = ({ bid, deletebid }) => {
 	const [loading, setLoading] = useState(false);
 	const [user] = useContext(UserContext);
 
-	const deleteBid = async() => {
+	const deleteBid = async () => {
 		setOpen(false);
-		setLoading(true); 
-		const [,error] = await bidDelete({userId: (bid.by?._id || null), productId: bid.productId});
-		if(!error) deletebid(bid._id);
-		if(bid) setLoading(false);
+		setLoading(true);
+		const [, error] = await bidDelete({ userId: (bid.by?._id || null), productId: bid.productId });
+		if (!error) deletebid(bid._id);
+		if (bid) setLoading(false);
 	}
 
 	return (
@@ -34,21 +34,22 @@ const BidItem = ({ bid, deletebid }) => {
 			{((user && user._id === bid.productOwner) || (bid.userId === user._id)) &&
 				(<div className="delete-bid">
 					<DeleteIcon onClick={() => setOpen(true)} color='error' />
-					<AlertDialog 
-						open={open} 
+					<AlertDialog
+						open={open}
 						setOpen={setOpen}
 						title={"Are you sure you want to continue?"}
 						message={"You are deleting a bid on your ad and it is an irreversible action"}
-						task={deleteBid} 
+						task={deleteBid}
+						taskArguments={[]}
 					/>
 				</div>)
 			}
 			<Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+				sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+				open={loading}
+			>
+				<CircularProgress color="inherit" />
+			</Backdrop>
 		</div>
 	)
 }
