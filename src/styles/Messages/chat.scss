@@ -11,6 +11,17 @@
         width: 100%;
         height: 80vh;
         overflow: auto;
+
+        .message-item-2{
+            @include flex($fd: row);
+            align-self: flex-end;
+        }
+
+        .message-item{
+            @include flex($fd: row);
+            align-self: flex-start;
+        }
+
         .his{
             align-self: end;
             border: 1px solid $primary-color;

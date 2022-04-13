@@ -8,6 +8,7 @@ import Loader from '../Loader';
 import sendMessage from '../../services/sendMessage';
 import socket from '../../socket/socket';
 import { useParams } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 
 import "../../styles/Messages/chat.scss";
 
@@ -82,8 +83,16 @@ const Chat = () => {
       <Toaster />
       <div ref={divRef} className='text-wrapper'>
         {chat.messages.map((item, index) => item.by === user._id ?
-          <div key={index} className="my">{item.message}</div> :
-          <div key={index} className="his">{item.message}</div>)}
+        <div className='message-item'>
+          <Avatar alt={user.name} src={user?.image?.url} />
+          <div key={index} className="my">
+            {item.message}
+          </div>
+        </div> :
+          <div className='message-item-2'>
+            <div key={index} className="his">{item.message}</div>
+            <Avatar alt={user.name} src={user._id === chat.idOne._id ? chat.idTwo?.image?.url : chat.idOne?.image?.url} />
+          </div>)}
       </div>
       <div className='message-input'>
         <TextField
