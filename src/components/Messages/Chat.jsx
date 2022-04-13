@@ -65,7 +65,7 @@ const Chat = () => {
         setChat({...chat, messages:temp});
       })
     }
-  },[chat.messages.length])
+  },[chat])
 
   const handleSubmit = async () => {
     let otherUser = chat.idOne.toString() === user._id ? chat.idTwo.toString() : chat.idOne.toString();
