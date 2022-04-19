@@ -16,6 +16,24 @@
     .user{
         @include flex($fd: "row");
         position: relative;
+
+        .messages{
+            position: relative;
+            
+            .num{
+                @include flex();
+                position: absolute;
+                top: 0px;left: 0px;
+                height: 17px;
+                width: 17px;
+                background-color: blueviolet;
+                color: white;
+                font-size: 13px;
+                border-radius: 100vh;
+                transition: all 0.5s ease-in-out;
+            }
+        }
+
         .favourites{
             position: relative;
             cursor: pointer;

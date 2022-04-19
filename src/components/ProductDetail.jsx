@@ -8,7 +8,7 @@ import BidForm from './BidForm';
 import ProductBids from './ProductBids';
 import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
-import Loader from './Loader';
+import CircularProgress from '@mui/material/CircularProgress';
 import Map from './Map';
 import FormDialog from './FormDialog';
 
@@ -35,8 +35,8 @@ const ProductDetail = () => {
 		fetchProduct.current();
 	}, [])
 
-	if (!product?._id) return <div className="product-wrapper">
-		<Loader width={70} height={70} />
+	if (!product?._id) return <div style={{height: "80vh"}} className="product-wrapper">
+		<CircularProgress thickness={4} />
 	</div>
 	return (
 		<div className="product-wrapper">

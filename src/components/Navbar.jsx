@@ -51,6 +51,7 @@ const Navbar = () => {
 				<li className='messages'>
 					<NavLink to="/messages" className={isActive}>
 						<MailOutlineIcon fontSize='large' />
+						{user.notifications?.length && <div className='num'>{user.notifications.length}</div>}
 					</NavLink>
 				</li>
 				<li className='favourites'>
