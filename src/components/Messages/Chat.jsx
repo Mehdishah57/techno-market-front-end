@@ -4,7 +4,7 @@ import getChat from '../../services/getChat';
 import { Toaster, toast } from "react-hot-toast";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Loader from '../Loader';
+import CircularProgress from '@mui/material/CircularProgress';
 import sendMessage from '../../services/sendMessage';
 import socket from '../../socket/socket';
 import { useParams } from 'react-router-dom';
@@ -20,19 +20,12 @@ const Chat = () => {
   const [chat, setChat] = useState({ messages: [] });
   const fetchChat = useRef(null);
   const divRef = useRef(null);
-  const scrollToBottom = useRef(null);
   const { id } = useParams();
-
-  scrollToBottom.current = () => {
-    divRef.current?.scrollIntoView({ behavior: "smooth" })
-    console.log(divRef.current?.scrollIntoView)
-  }
 
   fetchChat.current = async () => {
     const [data, error] = await getChat(id);
     if (error) toast.error("We couldn't fetch your messages! 😥😥😥");
     else setChat(data);
-    console.log(error?.response?.data || JSON.stringify(error))
     setLoading(false);
     let otherUser = data?.idOne._id.toString() === user._id ? data?.idTwo._id.toString() : data?.idOne._id.toString();
     socket.off("notification").on("notification", data => {
@@ -62,8 +55,10 @@ const Chat = () => {
   }, [])
 
   useEffect(() => {
-    scrollToBottom.current();
-  }, [chat])
+    if(divRef.current){
+      divRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }, [chat.messages])
 
   useEffect(() => {
     if (chat.messages.length) {
@@ -86,13 +81,13 @@ const Chat = () => {
     setMessage("");
   }
 
-  if (loading) return <div className="chat-wrapper">
-    <Loader height={50} width={50} />
+  if (loading) return <div style={{height:"80vh"}} className="chat-wrapper">
+    <CircularProgress thickness={4} />
   </div>
   return (
     <div className="chat-wrapper">
       <Toaster />
-      <div ref={divRef} className='text-wrapper'>
+      <div className='text-wrapper'>
         {chat.messages.map((item, index) => item.by === user._id ?
           <div className='message-item'>
             <Avatar alt={user.name} src={user?.image?.url} />
@@ -104,6 +99,7 @@ const Chat = () => {
             <div key={index} className="his">{item.message}</div>
             <Avatar alt={user.name} src={user._id === chat.idOne._id ? chat.idTwo?.image?.url : chat.idOne?.image?.url} />
           </div>)}
+          <div ref={divRef}></div>
       </div>
       <div className='message-input'>
         <TextField

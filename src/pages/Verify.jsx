@@ -32,10 +32,10 @@ const Verify = () => {
   const handleResend = async () => {
     setLoading(true);
     const [data, error] = await sendCode();
-    if (!error) toast.success(`${data}`);
+    if (!error) toast.success(`We'ev sent you a 6-Digit Code 😁😁😁`);
     if (!data) {
       setError(error);
-      toast.error(error)
+      toast.error(`${error}`)
     }
     setLoading(false);
   };
