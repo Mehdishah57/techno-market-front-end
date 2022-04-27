@@ -7,6 +7,10 @@ import { Routes, Route } from "react-router-dom";
 import ProductDetail from './../components/ProductDetail';
 import { Toaster, toast } from 'react-hot-toast';
 import CircularProgress from '@mui/material/CircularProgress';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import TuneIcon from '@mui/icons-material/Tune';
+import Filters from '../components/Home/Filters';
 
 import "../styles/home.scss";
 
@@ -15,6 +19,8 @@ const Home = () => {
 	const [search, setSearch] = useState("");
 	const [pageNumber, setPageNumber] = useState(1);
 	const [loading, setLoading] = useState(false);
+	const [filters, setFilters] = useState({});
+	const [showFilter, setShowFilter] = useState(false);
 
 	const fetchProducts = useRef();
 
@@ -31,18 +37,22 @@ const Home = () => {
 	}
 
 	useEffect(() => {
-		if (!search) fetchProducts.current({ pageNumber });
-		else fetchProducts.current({ pageNumber, search });
-	}, [pageNumber, search]);
+		fetchProducts.current({ pageNumber, search, filters });
+	}, [pageNumber, search, filters]);
 
 	const nextPage = () => products.length > 4 && setPageNumber(prevNumber => prevNumber + 1)
 
 	const previousPage = () => pageNumber > 1 && setPageNumber(prevNumber => prevNumber - 1)
 
+	const applyFilters = filter => {
+		setFilters(filter);
+		setShowFilter(false);
+	}
+
 	const MainHome = () => {
-		return loading ? <div style={{height: "80vh"}} className='home-wrapper'>
+		return loading ? <div style={{ height: "80vh" }} className='home-wrapper'>
 			<CircularProgress thickness={4} />
-		</div> :<div className="home-wrapper">
+		</div> : <div className="home-wrapper">
 			<Toaster />
 			<SearchSection search={search} setSearch={setSearch} />
 			<div className="home-products-wrapper">
@@ -57,8 +67,19 @@ const Home = () => {
 				nextPage={nextPage}
 				previousPage={previousPage}
 			/>
+			<Fab sx={{position:"absolute", bottom:"20px", right:"20px"}} color="primary" aria-label="add">
+				<AddIcon />
+			</Fab>
+			<Fab onClick={() => setShowFilter(true)} sx={{position:"absolute", bottom:"20px", right:"90px"}} color="inherit" aria-label="add">
+        		<TuneIcon />
+      		</Fab>
+			<Filters 
+				showFilter={showFilter} 
+				setShowFilter={setShowFilter}
+				applyFilters={applyFilters}
+			/>
 		</div>
-}
+	}
 
 	return (
 		<Routes>

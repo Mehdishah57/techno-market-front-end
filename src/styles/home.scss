@@ -7,6 +7,22 @@
     flex-direction: column;
     height: max-content;
 
+    .filter-wrapper{
+        @include flex();
+        position: absolute;
+        z-index: 99;
+        width: 100%;
+        background-color: white;
+        height: 0.000001px;
+        transition: all 0.2s ease-in-out;
+        overflow: hidden;
+
+        .filter-buttons{
+            @include flex($fd: row);
+            gap: 10px;
+        }
+    }
+
     .home-products-wrapper{
         display: flex;
         justify-content: center;

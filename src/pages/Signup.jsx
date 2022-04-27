@@ -15,7 +15,7 @@ const Signup = () => {
 	const [displayError, setDisplayError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const [,setUser] = useContext(UserContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const navigate = useNavigate();
 

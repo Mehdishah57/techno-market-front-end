@@ -41,8 +41,8 @@ const Sell = () => {
 			setColor("error");
 
 		} catch (error) {
-			if (!state?.picture) return toast.error("Atleast one image is required! 😒😒")
-			toast.error(error.message || "An Error occured while posting ad 😒😒😒😒");
+			if (!state?.picture) toast.error("Atleast one image is required! 😒😒")
+			else toast.error(error.message || "An Error occured while posting ad 😒😒😒😒");
 			setColor("error");
 			setLoading(false);
 		}

@@ -13,6 +13,8 @@ const ImageSection = ({ state, setState }) => {
 
 	const handleChange = e => {
 		if(!e.currentTarget?.files[0]) return;
+    if(e.currentTarget.files[0].type.indexOf("image") === -1)
+      return;
 		setImage({...image, [e.currentTarget.name]:URL.createObjectURL(e.currentTarget.files[0])})
 		setState({...state, picture: { ...state.picture, [e.currentTarget.name]:e.currentTarget.files[0] }});
     console.log(e.currentTarget.files[0])
@@ -26,7 +28,7 @@ const ImageSection = ({ state, setState }) => {
         ) : (
           <CameraAltOutlinedIcon fontSize="large"/>
         )}
-        <input type="file" name="image1" onChange={handleChange}/>
+        <input accept="image/*" type="file" name="image1" onChange={handleChange}/>
       </div>
       {(image.image1 || state.picture?.image1) && <div>
         {image.image2 || state?.image2 || state.picture?.image2 ? (
@@ -34,7 +36,7 @@ const ImageSection = ({ state, setState }) => {
         ) : (
           <CameraAltOutlinedIcon fontSize="large"/>
         )}
-        <input type="file" name="image2" onChange={handleChange}/>
+        <input accept="image/*" type="file" name="image2" onChange={handleChange}/>
       </div>}
       {(image.image2 || state.picture?.image2) && <div>
         {image.image3 || state?.image3 || state.picture?.image3 ? (
@@ -43,7 +45,7 @@ const ImageSection = ({ state, setState }) => {
           <CameraAltOutlinedIcon fontSize="large"/>
         )}
 
-        <input type="file" name="image3" onChange={handleChange}/>
+        <input accept="image/*" type="file" name="image3" onChange={handleChange}/>
       </div>}
       {(image.image3 || state.picture?.image3) && <div>
         {image.image4 || state?.image4 || state.picture?.image4 ? (
@@ -52,7 +54,7 @@ const ImageSection = ({ state, setState }) => {
           <CameraAltOutlinedIcon fontSize="large"/>
         )}
 
-        <input type="file" name="image4" onChange={handleChange}/>
+        <input accept="image/*" type="file" name="image4" onChange={handleChange}/>
       </div>}
       {(image.image4|| state.picture?.image4) && <div>
         {image.image5 || state?.image5 || state.picture?.image5 ? (
@@ -60,7 +62,7 @@ const ImageSection = ({ state, setState }) => {
         ) : (
           <CameraAltOutlinedIcon fontSize="large"/>
         )}
-        <input type="file" name="image5" onChange={handleChange}/>
+        <input accept="image/*" type="file" name="image5" onChange={handleChange}/>
       </div>}
       {(image.image5 || state.picture?.image5) && <div>
         {image.image6 || state?.image6 || state.picture?.image6 ? (
@@ -68,7 +70,7 @@ const ImageSection = ({ state, setState }) => {
         ) : (
           <CameraAltOutlinedIcon fontSize="large"/>
         )}
-        <input type="file" name="image6" onChange={handleChange}/>
+        <input accept="image/*" type="file" name="image6" onChange={handleChange}/>
       </div>}
     </div>
   );

@@ -6,7 +6,7 @@ const TextArea = ({ state, setState, placeholder, value }) => {
 		<div className='text-wrapper'>
 			<textarea 
 				placeholder={placeholder} 
-				value={value}
+				value={description}
 				onBlur={() => setState({ ...state, description: description })}
 				onChange={e => setDescription(e.currentTarget.value)}>
 			</textarea>
