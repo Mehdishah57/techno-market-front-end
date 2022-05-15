@@ -8,7 +8,6 @@ import ProductDetail from './../components/ProductDetail';
 import { Toaster, toast } from 'react-hot-toast';
 import CircularProgress from '@mui/material/CircularProgress';
 import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import TuneIcon from '@mui/icons-material/Tune';
 import Filters from '../components/Home/Filters';
 
@@ -67,10 +66,7 @@ const Home = () => {
 				nextPage={nextPage}
 				previousPage={previousPage}
 			/>
-			<Fab sx={{position:"absolute", bottom:"20px", right:"20px"}} color="primary" aria-label="add">
-				<AddIcon />
-			</Fab>
-			<Fab onClick={() => setShowFilter(true)} sx={{position:"absolute", bottom:"20px", right:"90px"}} color="inherit" aria-label="add">
+			<Fab onClick={() => setShowFilter(true)} sx={{position:"absolute", bottom:"20px", right:"20px"}} color="inherit" aria-label="add">
         		<TuneIcon />
       		</Fab>
 			<Filters 

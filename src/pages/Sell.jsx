@@ -11,6 +11,8 @@ import getMyAd from '../services/getMyAd';
 import { useNavigate, useParams } from "react-router-dom";
 import TextInput from '../components/Sell/TextInput';
 import TextArea from '../components/Sell/TextArea';
+import SimpleBackdrop from '../components/BackDrop';
+
 
 import "../styles/Sell/sell.scss";
 
@@ -27,22 +29,14 @@ const Sell = () => {
 		try {
 			setLoading(true);
 			await validateProduct(state);
-			const formData = new FormData();
-			formData.append("title", state.title);
-			formData.append("description", state.description);
-			formData.append("location", state.location);
-			formData.append("subCategory", state.subCategory)
-			formData.append("category", state.category)
-			formData.append("price", state.price);
-			Object.keys(state.picture).map(key => formData.append(key, state.picture[key]))
-			const [data, error] = await addProduct(formData);
+			const [data, error] = await addProduct(state);
 			if (data) return navigation("/profile/my-ads");
 			toast.error(error.response?.data || "An Error occured while posting ad 😒😒😒😒");
 			setColor("error");
 
 		} catch (error) {
 			if (!state?.picture) toast.error("Atleast one image is required! 😒😒")
-			else toast.error(error.message || "An Error occured while posting ad 😒😒😒😒");
+			else toast.error("An Error occured while posting ad 😒😒😒😒");
 			setColor("error");
 			setLoading(false);
 		}
@@ -71,7 +65,8 @@ const Sell = () => {
 	}, [user._id])
 
 	return (
-		<div className="sell-wrapper">
+		<div className="sell-wrapper" style={{pointerEvents:loading?'none':'all'}}>
+			{ loading && <SimpleBackdrop open={loading} />}
 			<Toaster />
 			<ImageSection state={state} setState={setState} />
 			<TextInput value={state.title} label="title" state={state} setState={setState} />

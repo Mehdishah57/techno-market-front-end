@@ -18,33 +18,34 @@ const UserImage = () => {
 
 	const handleChange = async e => {
 		if (e.currentTarget?.files[0]) {
-			setProcessing(true);
-			setImage(e.currentTarget.files[0]);
-			setDisplayImage(URL.createObjectURL(e.currentTarget.files[0]));
-			const toastId = toast.loading('Your image is being processed!')
-			const url = "https://teachablemachine.withgoogle.com/models/MbZhmYO9X/";
-			let model, maxPredictions;
-			const modelURL = url + "model.json";
-			const metadataURL = url + "metadata.json";
-			model = await window.tmImage?.load(modelURL, metadataURL);
-			maxPredictions = model.getTotalClasses();
-			const prediction = await model.predict(document.getElementById('dispimg'));
-			const info = {}
-			for (let i = 0; i < maxPredictions; i++) {
-				// info[prediction[i].className] = prediction[i].probability.toFixed(2);
-				info[prediction[i].className] = prediction[i].probability;
-			}
-			let fp = {name: "", prob: 0};
-			Object.keys(info).map(key => {
-				if(info[key] > fp.prob){
-					fp.name = key;
-					fp.prob = info[key]
-				}
-				return 0;
-			})
-			setProcessing(false);
-			toast.dismiss(toastId);
-			toast.success(`Apparently you uploaded a ${fp.name} Picture 😁😁😁`, {duration: 5000})
+			// setProcessing(true);
+			const reader = new FileReader();
+			reader.readAsDataURL(e.currentTarget.files[0])
+			reader.onloadend = () => setDisplayImage(reader.result);
+			// const toastId = toast.loading('Your image is being processed!')
+			// const url = "https://teachablemachine.withgoogle.com/models/MbZhmYO9X/";
+			// let model, maxPredictions;
+			// const modelURL = url + "model.json";
+			// const metadataURL = url + "metadata.json";
+			// model = await window.tmImage?.load(modelURL, metadataURL);
+			// maxPredictions = model.getTotalClasses();
+			// const prediction = await model.predict(document.getElementById('dispimg'));
+			// const info = {}
+			// for (let i = 0; i < maxPredictions; i++) {
+			// 	// info[prediction[i].className] = prediction[i].probability.toFixed(2);
+			// 	info[prediction[i].className] = prediction[i].probability;
+			// }
+			// let fp = {name: "", prob: 0};
+			// Object.keys(info).map(key => {
+			// 	if(info[key] > fp.prob){
+			// 		fp.name = key;
+			// 		fp.prob = info[key]
+			// 	}
+			// 	return 0;
+			// })
+			// setProcessing(false);
+			// toast.dismiss(toastId);
+			// toast.success(`Apparently you uploaded a ${fp.name} Picture 😁😁😁`, {duration: 5000})
 		}
 	}
 
@@ -61,14 +62,14 @@ const UserImage = () => {
 	}
 
 	const handleUpload = async () => {
-		if (!image) return alert("No image was selected");
+		if(!displayImage) return toast.error("You didn't select any image! 🤨🤨🤨");
 		setLoading(true);
 		const formData = new FormData();
-		formData.append("image", image, "image");
+		formData.append("image", displayImage);
 		const [data, error] = await uploadProfilePicture(formData);
-		if (error) return showError(error);
+		if(error) return showError(error);
 		setDisplayImage(null);
-		setUser({ ...user, image: { url: data.webContentLink, id: data.id } });
+		setUser({ ...user, image: { url: data.url }})
 		setLoading(false);
 	}
 

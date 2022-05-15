@@ -6,18 +6,15 @@
 
     .location-wrapper{
         width: 95%;
-        max-width: 500px;
     }
 
     .category-wrapper{
         width: 95%;
-        max-width: 500px;
     }
 
     .text-wrapper{
         @include flex();
         width: 95%;
-        max-width: 500px;
 
         textarea{
             width: 100%;

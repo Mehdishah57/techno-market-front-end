@@ -1,27 +1,15 @@
-import React, {useState, useEffect, useRef} from 'react'
-import getLists from '../../services/getLists';
+import React from 'react'
 import ListItem from './ListItem';
-import { Toaster, toast } from 'react-hot-toast';
+import useMessageList from '../../hooks/useMessageList';
 
 import "../../styles/Messages/list.scss";
 
 const List = () => {
-  const [list, setList] = useState([]);
-  const fetchLists = useRef(null);
-
-  fetchLists.current = async() => {
-    const [data, error] = await getLists();
-    if(error) return toast.error(error.response?.data);
-    setList(data);
-  }
-
-  useEffect(()=>{
-    fetchLists.current();
-  },[])
+  const [list, error] = useMessageList();
 
   return (
     <div className='list-wrapper'>
-      <Toaster />
+      {error && <>{error}</>}
       {list.map( item => <ListItem key={item._id} item={item} />)}    
     </div>
   )

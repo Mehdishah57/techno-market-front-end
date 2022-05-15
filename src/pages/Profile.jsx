@@ -5,6 +5,7 @@ import UserImage from '../components/UserImage';
 import UserNav from './../components/UserNav';
 import MyAds from './MyAds';
 import Favourites from './Favourites';
+import NameSection from '../components/Profile/NameSection';
 
 import "../styles/profile.scss";
 
@@ -14,7 +15,7 @@ const Profile = () => {
 	return (
 		<div className="profile-wrapper">
 			<UserImage />
-			<div className="username">{user.name}</div>
+			<NameSection />
 			<Routes>
 				<Route path='/' element={<UserNav />} />
 				<Route path='my-ads' element={<MyAds />}/>
