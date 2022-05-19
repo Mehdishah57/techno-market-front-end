@@ -12,6 +12,7 @@ import TuneIcon from '@mui/icons-material/Tune';
 import Filters from '../components/Home/Filters';
 
 import "../styles/home.scss";
+import FilterDrawer from '../components/Drawer';
 
 const Home = () => {
 	const [products, setProducts] = useState([]);
@@ -53,6 +54,7 @@ const Home = () => {
 			<CircularProgress thickness={4} />
 		</div> : <div className="home-wrapper">
 			<Toaster />
+			<FilterDrawer />
 			<SearchSection search={search} setSearch={setSearch} />
 			<div className="home-products-wrapper">
 				{products.map(product =>
