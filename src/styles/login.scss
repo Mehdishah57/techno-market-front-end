@@ -11,10 +11,10 @@
 
     .sub-wrapper{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-wrap: wrap;
+        
         width: 100%;
         height: 100%;
 
@@ -44,7 +44,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            
+            
     
             form {
                 display: flex;
@@ -54,10 +55,27 @@
                 flex-direction: column;
                 width: 100%;
                 overflow: hidden;
-    
-                div {
+                position: relative;
+
+                .heading{
+                    text-align: center;
+                    border: 4px dashed black;
+                    padding: 10px;
+                    border-radius: 10px;
+                    color: black;
                     margin-bottom: 10px;
-                    max-width: 300px;
+                    width: 100%;
+                }
+
+                .bgImage{
+                    position: absolute;
+                    opacity: 0.1;
+                    z-index: 0.2;
+                }
+    
+                .field-wrapper {
+                    margin-bottom: 10px;
+                    
                     width: 100%;
     
                     .f0011{
@@ -68,8 +86,8 @@
     
                 .b0011{
                     text-transform: capitalize;
-                    width: 100px;
-                    height: 45px;
+                    background-color: black;
+                    color: white;
                 }
     
                 .button-wrapper{
@@ -88,16 +106,9 @@
                         text-align: center;
                         color: $medium-color;
                         margin-top: 10px;
+                        font-size: 14px;
                     }
                 }
-            }
-        }
-    }
-
-    @media only screen and (max-width:620px) {
-        .sub-wrapper{
-            .text{
-                display: none;
             }
         }
     }

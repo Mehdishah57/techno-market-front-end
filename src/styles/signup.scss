@@ -19,34 +19,20 @@
         width: 100%;
         height: 100%;
 
-        .text {
-            display: flex;
-            // flex: 500px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 50%;
-            height: 100%;
-            word-wrap: break-word;
-            font-size: 22px;
-    
-            p {
-                font-size: 18px;
-            }
-    
-            div {
-                text-align: left;
-            }
-        }
-
         .form {
             display: flex;
             flex: 250px;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%;
             
+            .heading{
+                color: black;
+                padding: 10px;
+                border: 4px dashed black;
+                border-radius: 10px;
+            }
+
             form {
                 display: flex;
                 flex-direction: column;
@@ -89,6 +75,8 @@
     
                 .b0011{
                     text-transform: capitalize;
+                    background: #000;
+                    color: white;
                     width: 100px;
                     height: 45px;
                 }
@@ -117,13 +105,6 @@
                 text-align: center;
                 font-weight: bold;
                 color: red;
-            }
-        }
-    }
-    @media only screen and (max-width: 730px){
-        .sub-wrapper{
-            .text{
-                display: none;
             }
         }
     }

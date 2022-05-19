@@ -6,6 +6,7 @@ import login from '../services/login';
 import { UserContext } from './../global/UserContext';
 import { loginSchema } from '../schemas/login';
 import { Toaster, toast } from "react-hot-toast";
+import logo from "../assets/logo.png";
 import "../styles/login.scss";
 
 
@@ -46,16 +47,12 @@ const Login = () => {
 		<div className="login-wrapper">
 			<Toaster />
 			<div className="sub-wrapper">
-				<div className="text">
-					<div>
-						<h1>Welcome to</h1>
-						<h1>Techno Market Place</h1>
-						<p>"Shop Well Save Well"</p>
-					</div>
-				</div>
 				<div className="form">
 					<form onSubmit={handleLogin}>
-						<div>
+						<div className="heading">
+							<h1>Sign In</h1>
+						</div>
+						<div className='field-wrapper'>
 							<TextField
 								size="medium"
 								className="f0011"
@@ -64,10 +61,11 @@ const Login = () => {
 								label="Email"
 								disabled={loading}
 								variant="outlined"
+								fullWidth
 								onChange={e => { setEmail(e.currentTarget.value); setError("") }}
 							/>
 						</div>
-						<div>
+						<div className='field-wrapper'>
 							<TextField
 								size="medium"
 								className="f0011"
@@ -76,6 +74,7 @@ const Login = () => {
 								disabled={loading}
 								variant="outlined"
 								type="password"
+								fullWidth
 								onChange={e => { setPassword(e.currentTarget.value); setError("") }}
 							/>
 						</div>
@@ -83,7 +82,6 @@ const Login = () => {
 							<Button
 								className="b0011"
 								variant="contained"
-								color={error ? "error" : "inherit"}
 								type="submit"
 								disabled={loading}
 								onClick={handleLogin}

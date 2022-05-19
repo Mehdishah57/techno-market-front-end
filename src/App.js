@@ -5,7 +5,7 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import UserProvider from "./global/UserContext";
-import Navbar from './components/Navbar';
+import Navbar from './components/NavbarT';
 import ForgotPassword from './pages/ForgotPassword';
 import Messages from './pages/Messages';
 import RequireAuth from './utils/RequireAuth';

@@ -15,7 +15,7 @@ const Signup = () => {
 	const [displayError, setDisplayError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const [user, setUser] = useContext(UserContext);
+	const [, setUser] = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -52,14 +52,10 @@ const Signup = () => {
 	return (
 		<div className="signup-wrapper">
 			<div className="sub-wrapper">
-				<div className="text">
-					<div>
-						<h1>Welcome to</h1>
-						<h1>Techno Market Place</h1>
-						<p>"Shop Well Save Well"</p>
-					</div>
-				</div>
 				<div className="form">
+					<div className="heading">
+						<h1>Create an account</h1>
+					</div>
 					<form onSubmit={handleSubmit}>
 						<div>
 							<TextField
