@@ -32,6 +32,12 @@
         width: 100%;
         gap: 20px;
         overflow-x: hidden;
+
+        .no-result{
+            font-size: 18px;
+            font-weight: bolder;
+            color: $medium-color;
+        }
     }
 
     .search-wrapper{

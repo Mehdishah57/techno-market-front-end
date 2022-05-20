@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,6 +7,11 @@ const SearchSection = (props) => {
 	const [search, setSearch] = useState("");
 
 	const handleSearch = async () => search !== props.search && props.setSearch(search)
+
+	useEffect(()=>{
+		if(props.search)
+			setSearch(props.search);
+	},[])
 
 	return (
 		<div className="search-wrapper">
@@ -19,6 +24,7 @@ const SearchSection = (props) => {
 				type="text"
 				autoComplete='off'
 				fullWidth
+				value={search}
 				onChange={e => { setSearch(e.currentTarget.value) }}
 			/>
 			<Button

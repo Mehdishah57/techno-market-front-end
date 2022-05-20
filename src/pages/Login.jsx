@@ -6,7 +6,7 @@ import login from '../services/login';
 import { UserContext } from './../global/UserContext';
 import { loginSchema } from '../schemas/login';
 import { Toaster, toast } from "react-hot-toast";
-import logo from "../assets/logo.png";
+import socket from "../socket/socket";
 import "../styles/login.scss";
 
 
@@ -16,7 +16,7 @@ const Login = () => {
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const [, setUser] = useContext(UserContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const navigate = useNavigate();
 
@@ -36,7 +36,8 @@ const Login = () => {
 			if (error) return showError(error);
 			localStorage.setItem("fyptoken", data.token);
 			setUser(data.user);
-			navigate("/home", { replace: true });
+			window.location = "/home";
+			// navigate("/home", { replace: true });
 		} catch (error) {
 			error.name === "ValidationError" && (error.validationError = true)
 			showError(error)

@@ -1,0 +1,39 @@
+@import "../../base";
+
+.category{
+    padding: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    color: $medium-color;
+    border-radius: 5px;
+    @include flex($fd: row);
+    transition: all 0.1s ease-in-out;
+
+    &:hover{
+        color: $primary-color;
+    }
+}
+
+.cat-table{
+    //display: none;
+}
+
+.cat-heading{
+    font-size: medium;
+    color: $medium-color;
+    cursor: pointer;
+
+    &:hover{
+        color: $primary-color;
+    }
+}
+
+.sub-cat{
+    font-size: 14px;
+    color: $medium-color;
+    cursor: pointer;
+
+    &:hover{
+        color: $primary-color;
+    }
+}

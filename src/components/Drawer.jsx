@@ -1,27 +1,24 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
+import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
+import { UserContext } from '../global/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
 	display: 'flex',
@@ -32,9 +29,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-const FilterDrawer = () => {
+const NavigationDrawer = () => {
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(true);
+	const [open, setOpen] = useState(true);
+	const [user, setUser] = useContext(UserContext)
+
+	const navigate = useNavigate();
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -43,6 +43,12 @@ const FilterDrawer = () => {
 	const handleDrawerClose = () => {
 		setOpen(false);
 	};
+
+	const handleLogout = () => {
+		localStorage.removeItem("fyptoken");
+		setUser({});
+	}
+
 	return (
 		<Drawer
 			sx={{
@@ -65,51 +71,71 @@ const FilterDrawer = () => {
 			<Divider />
 			<List>
 				<ListItem disablePadding>
-					<ListItemButton>
+					<ListItemButton onClick={() => navigate("/home")}>
 						<ListItemIcon>
 							<HomeRoundedIcon />
 						</ListItemIcon>
 						<ListItemText primary={"Home"} />
 					</ListItemButton>
 				</ListItem>
-				<ListItem disablePadding>
-					<ListItemButton>
-						<ListItemIcon>
-							<AddIcon />
-						</ListItemIcon>
-						<ListItemText primary={"Post"} />
-					</ListItemButton>
-				</ListItem>
-				<ListItem disablePadding>
-					<ListItemButton>
-						<ListItemIcon>
-							<FavoriteBorderRoundedIcon />
-						</ListItemIcon>
-						<ListItemText primary={"Favourites"} />
-					</ListItemButton>
-				</ListItem>
-				<ListItem disablePadding>
-					<ListItemButton>
-						<ListItemIcon>
-							<InboxIcon />
-						</ListItemIcon>
-						<ListItemText primary={"Messages"} />
-					</ListItemButton>
-				</ListItem>
+				{user?._id && <>
+					<ListItem disablePadding>
+						<ListItemButton onClick={() => navigate("/sell")}>
+							<ListItemIcon>
+								<AddIcon />
+							</ListItemIcon>
+							<ListItemText primary={"Post"} />
+						</ListItemButton>
+					</ListItem>
+					<ListItem disablePadding>
+						<ListItemButton onClick={() => navigate("/profile/favourites")}>
+							<ListItemIcon>
+								<FavoriteBorderRoundedIcon />
+							</ListItemIcon>
+							<ListItemText primary={"Favourites"} />
+						</ListItemButton>
+					</ListItem>
+					<ListItem disablePadding>
+						<ListItemButton onClick={() => navigate("/messages")}>
+							<ListItemIcon>
+								<MailIcon />
+							</ListItemIcon>
+							<ListItemText primary={"Messages"} />
+						</ListItemButton>
+					</ListItem>
+				</>}
 			</List>
 			<Divider />
 			<List>
-				<ListItem disablePadding>
-					<ListItemButton>
+				{user?._id && <ListItem disablePadding>
+					<ListItemButton onClick={handleLogout}>
 						<ListItemIcon>
 							<LogoutRoundedIcon />
 						</ListItemIcon>
 						<ListItemText primary={"Logout"} />
 					</ListItemButton>
-				</ListItem>
+				</ListItem>}
+				{!user?._id && <>
+					<ListItem disablePadding>
+						<ListItemButton onClick={() => navigate("/login")}>
+							<ListItemIcon>
+								<LoginRoundedIcon />
+							</ListItemIcon>
+							<ListItemText primary={"SignIn"} />
+						</ListItemButton>
+					</ListItem>
+					<ListItem disablePadding>
+						<ListItemButton onClick={() => navigate("/signup")}>
+							<ListItemIcon>
+								<PersonAddAltRoundedIcon />
+							</ListItemIcon>
+							<ListItemText primary={"Register"} />
+						</ListItemButton>
+					</ListItem>
+				</>}
 			</List>
 		</Drawer>
 	)
 }
 
-export default FilterDrawer;
+export default NavigationDrawer;
