@@ -19,7 +19,7 @@ const Chat = () => {
   const [user, setUser] = useContext(UserContext);
   const [chat, setChat] = useState({ messages: [] });
   const fetchChat = useRef(null);
-  const divRef = useRef(null);
+  const clearNotifications = useRef(null);
   const { id } = useParams();
 
   fetchChat.current = async () => {
@@ -34,6 +34,21 @@ const Chat = () => {
     })
   }
 
+  clearNotifications.current = () => {
+    console.log(chat)
+    if(!user.notifications) return;
+    let otherUser = chat?.idOne?._id?.toString() === user._id ? chat?.idTwo?._id?.toString() : chat?.idOne?._id?.toString();
+    if(!otherUser) return;
+    let messageByThisUser = user.notifications.find(item => item.id === otherUser);
+    if(!messageByThisUser) return;
+    let temp = user.notifications.filter(item => item.id !== otherUser);
+    setUser({...user, notifications:temp});
+  }
+
+  useEffect(()=>{
+    clearNotifications.current()
+  },[chat])
+
   useEffect(() => {
     fetchChat.current();
 
@@ -44,7 +59,7 @@ const Chat = () => {
         if (!notification) temp.push({ id: data.sender, count: 1 });
         else {
           notification.count++;
-          temp = temp.filter(item => item.id !== notification.sender);
+          temp = temp.filter(item => item.id === notification.id);
           temp.push(notification);
         }
         setUser({ ...user, notifications: temp });
@@ -53,12 +68,6 @@ const Chat = () => {
       socket.off("user-message");
     }
   }, [])
-
-  useEffect(() => {
-    if(divRef.current){
-      divRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }, [chat.messages])
 
   useEffect(() => {
     if (chat.messages.length) {
@@ -99,7 +108,6 @@ const Chat = () => {
             <div key={index} className="his">{item.message}</div>
             <Avatar alt={user.name} src={user._id === chat.idOne._id ? chat.idTwo?.image?.url : chat.idOne?.image?.url} />
           </div>)}
-          <div ref={divRef}></div>
       </div>
       <div className='message-input'>
         <TextField

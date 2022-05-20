@@ -4,7 +4,8 @@
     @include flex();
     width: auto;
     padding: 10px;
-    max-height: 80vh;
+    height: 100%;
+    // max-height: 80vh;
 
     .text-wrapper{
         @include flex();
@@ -24,7 +25,7 @@
 
         .his{
             align-self: end;
-            border: 1px solid $primary-color;
+            border: 1px solid $blue;
             padding: 5px;
             word-wrap: break-word;
             border-radius: 10px;
@@ -32,7 +33,7 @@
     
         .my{
             align-self: start;
-            background: $primary-color;
+            background: $blue;
             padding: 5px;
             word-wrap: break-word;
             color: white;border-radius: 10px;

@@ -11,6 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import "../styles/nav.scss";
+import socket from '../socket/socket';
 
 const Navbar = () => {
 	const [user, setUser] = useContext(UserContext);
@@ -20,7 +21,12 @@ const Navbar = () => {
 	const handleLogout = () => {
 		localStorage.removeItem("fyptoken");
 		setUser({});
+		socket.disconnect();
 	}
+
+	React.useEffect(()=>{
+		console.log(user.notifications)
+	})
 
 	return (
 		<nav className="nav-wrapper">
@@ -51,7 +57,7 @@ const Navbar = () => {
 				<li className='messages'>
 					<NavLink to="/messages" className={isActive}>
 						<MailOutlineIcon fontSize='large' />
-						{user.notifications?.length && <div className='num'>{user.notifications.length}</div>}
+						{user.notifications?.length ?<div className='num'>{user.notifications.length}</div>:null}
 					</NavLink>
 				</li>
 				<li className='favourites'>
