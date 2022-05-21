@@ -4,49 +4,53 @@ import { Carousel } from 'react-responsive-carousel';
 import bannerOne from "../../assets/h1.png"
 import bannerTwo from "../../assets/h2.png"
 import bannerThree from "../../assets/h3.png"
-import SearchSection from '../SearchSection';
-import CategoryFilterSection from './CategoryFilterSection';
 import Box from '@mui/material/Box';
 import HomePageControl from '../HomePageControl';
 import ProductItem from '../ProductItem';
-import CircularProgress from '@mui/material/CircularProgress';
 import getCategoryWise from '../../services/getCategoryWise';
+import getFreshProducts from '../../services/getFreshProducts';
+import ProductSkeletonList from '../ProductSkeletonList';
+import CategoryFilterSection from './CategoryFilterSection';
+import SearchSection from '../SearchSection';
 
-const MainHome = ({
-	products,
-	filters,
-	setFilters,
-	search,
-	setSearch,
-	pageNumber,
-	nextPage,
-	previousPage,
-	loading }) => {
+const MainHome = ({filters, setFilters, search, setSearch}) => {
+		const [freshProducts, setFreshProducts] = useState([]);
 	const [mobiles, setMobiles] = useState([]);
 	const [bikes, setBikes] = useState([]);
+	const [pageNumber, setPageNumber] = useState(1);
+	const [pageSize] = useState(10);
+	const [loading, setLoading] = useState(true);
 	const fetchData = useRef(null);
 
 	fetchData.current = async () => {
+		const [freshProducts, freshProductsError] = await getFreshProducts(pageNumber, pageSize);
 		const [mobiles, mobileError] = await getCategoryWise("Mobiles");
 		const [bikes, bikeError] = await getCategoryWise("Bikes")
-		if (mobileError || bikeError) return console.log(mobileError || bikeError);
+		if (mobileError || bikeError || freshProductsError) 
+			return console.log(mobileError || bikeError || freshProductsError);
+		setFreshProducts(freshProducts);
 		setMobiles(mobiles);
 		setBikes(bikes);
+		setLoading(false);
 	}
 
 	useEffect(() => {
 		fetchData.current();
 	}, [])
 
+	const nextPage = () => freshProducts.length >= pageSize && setPageNumber(prevNumber => prevNumber + 1)
+
+	const previousPage = () => pageNumber > 1 && setPageNumber(prevNumber => prevNumber - 1)
+
 	return <div className="home-wrapper">
 		<Toaster />
 		<CategoryFilterSection filters={filters} setFilters={setFilters} />
 		<SearchSection
-			search={search}
-			setSearch={setSearch}
-			filters={filters}
-			setFilters={setFilters}
-		/>
+					search={search}
+					setSearch={setSearch}
+					filters={filters}
+					setFilters={setFilters}
+				/>
 		<Carousel
 			width="700px"
 			autoPlay
@@ -70,12 +74,12 @@ const MainHome = ({
 			<Box width='100%' padding={1}>
 				<h2>Fresh Recommendations</h2>
 			</Box>
-			{!loading ? products.map(product =>
+			{!loading ? freshProducts.map(product =>
 				<ProductItem
 					key={product._id}
 					product={product}
-				/>) : <CircularProgress thickness={4} />}
-			{!products.length && !loading && <div className='no-result'>No Results</div>}
+				/>) : <ProductSkeletonList number={12} />}
+			{!freshProducts.length && !loading && <div className='no-result'>No Results</div>}
 		</div>
 
 		<HomePageControl
@@ -103,7 +107,9 @@ const MainHome = ({
 				flexDirection="row"
 				flexWrap="wrap"
 			>
-				{mobiles.map(mobile => <ProductItem key={mobile._id} product={mobile} />)}
+				{loading? 
+					<ProductSkeletonList number={6} />
+				:mobiles.map(mobile => <ProductItem key={mobile._id} product={mobile} />)}
 			</Box>
 		</Box>
 		<Box 
@@ -126,7 +132,9 @@ const MainHome = ({
 				flexDirection="row" 
 				flexWrap="wrap"
 			>
-				{bikes.map(bike => <ProductItem key={bike._id} product={bike} />)}
+				{loading? 
+					<ProductSkeletonList />
+				:bikes.map(bike => <ProductItem key={bike._id} product={bike} />)}
 			</Box>
 		</Box>
 		{/* <Fab onClick={() => setShowFilter(true)} sx={{position:"absolute", bottom:"20px", right:"20px"}} color="inherit" aria-label="add">

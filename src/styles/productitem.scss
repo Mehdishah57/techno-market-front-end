@@ -7,17 +7,15 @@
     align-items: center;
     flex-direction: column;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.281);
-    padding: 10px;
 
-    width: 250px;
-    height: 290px;
+    width: 210px;
+    height: 250px;
 
    
 
-    border-radius: 10px;
+    border-radius: 5px;
 
     gap: 10px;
-    cursor: grab;
 
     overflow: hidden;
     transition: all 0.2s ease-in-out;
@@ -35,15 +33,19 @@
         position: absolute;
         height: 25px;
         width: 25px;
-        top: 10px;
-        left: 10px;
+        bottom: 10px;
+        right: 10px;
         cursor: pointer;
+        z-index: 99999;
     }
 
     .image{
+        position: absolute;
+        top: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 210px;
         height: 140px;
         overflow: hidden;
         cursor: pointer;
@@ -52,14 +54,17 @@
 
     .info{
         display: flex;
+        position: absolute;
+        bottom: 10px;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 10px;
 
         .title{
             font-size: 14px;
             font-weight: bolder;
+            word-wrap: break-word;
+            text-align: center;
         }
         .price{
             font-size: 14px;

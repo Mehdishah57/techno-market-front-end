@@ -2,7 +2,7 @@ import React from 'react'
 
 const SearchHome = () => {
   return (
-    <div>SearchHome</div>
+    <div>I am tired now will make this tomorrow 🥱🥱🥱😴😴😴😴</div>
   )
 }
 

@@ -21,7 +21,7 @@ export default function FormDialog({ open, setOpen, title, description, id }) {
 	const handleClose = () => setOpen(false);
 
 	const handleSend = async () => {
-		socket.emit("message", { id: user.otherUserChatId, message, name: user.name, sender: user._id })
+		socket.emit("message", { id: id, message, name: user.name, sender: user._id })
 		setLoading(true);
 		const [data] = await sendMessage(id, message);
 		setLoading(false);
