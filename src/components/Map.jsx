@@ -2,7 +2,7 @@ import React from 'react'
 import { GoogleMap, useJsApiLoader, Circle } from '@react-google-maps/api';
 
 const containerStyle = {
-  width: '100%',
+  width: '30%',
   height: '400px'
 };
 

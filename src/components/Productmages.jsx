@@ -2,14 +2,14 @@ import React, { useState, useRef } from 'react';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import { Carousel } from 'react-responsive-carousel';
 const ProductImages = ({ product }) => {
 	const [stack, setStack] = useState(["image1"]);
 	const [open, setOpen] = useState(false);
 	const [loaded, setLoaded] = useState(false);
 
 	const imageRef = useRef(null);
-	
+
 	const nextImage = () => {
 		if (stack.length === 6) return;
 		let temp = [...stack];
@@ -59,5 +59,15 @@ const ProductImages = ({ product }) => {
 		{open && <FullScreenImage />}
 	</div>;
 };
+
+// const ProductImages = ({ product }) => {
+// 	return <div className="image-section">
+// 		<Carousel width="300px">
+// 			{Object.values(product.picture).map(itm => <div>
+// 				<img src={itm.url} alt="" />
+// 			</div>)}
+// 		</Carousel>
+// 	</div>
+// }
 
 export default ProductImages;

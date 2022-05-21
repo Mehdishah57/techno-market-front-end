@@ -9,8 +9,10 @@ import ProductBids from './ProductBids';
 import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
 import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import Map from './Map';
 import FormDialog from './FormDialog';
+import { Carousel } from 'react-responsive-carousel';
 
 import "../styles/productdetails.scss";
 
@@ -35,13 +37,16 @@ const ProductDetail = () => {
 		fetchProduct.current();
 	}, [])
 
-	if (!product?._id) return <div style={{height: "80vh"}} className="product-wrapper">
+	if (!product?._id) return <div style={{ height: "80vh" }} className="product-wrapper">
 		<CircularProgress thickness={4} />
 	</div>
 	return (
 		<div className="product-wrapper">
 			<div className="back" onClick={handleBack}><ArrowBackIcon />Back</div>
-			<ProductImages product={product} />
+		
+				<ProductImages product={product} />
+				
+
 			<div className="title">{product.title}</div>
 			<div className="price">RS: {product.price}</div>
 			<div className="description">{product.description}</div>

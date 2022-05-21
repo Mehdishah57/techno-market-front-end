@@ -1,6 +1,6 @@
 @import "../../base";
 
-.signup-wrapper{
+.signup-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,103 +9,89 @@
     height: 90vh;
     overflow-x: hidden;
 
-    .sub-wrapper{
+    .form {
         display: flex;
-        flex-direction: row;
+        flex: 250px;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-wrap: wrap;
-        padding: 20px;
-        width: 100%;
-        height: 100%;
 
-        .form {
-            display: flex;
-            flex: 250px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            
-            .heading{
-                color: black;
+        .heading {
+            color: black;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+
+        div {
+            margin-bottom: 5px;
+            max-width: 370px;
+            width: 100%;
+
+            .f0011 {
+                border-color: black;
+            }
+
+            .country-code-input {
+                border: none;
+                border-bottom: 1px solid $medium-color;
                 padding: 10px;
-                border: 4px dashed black;
-                border-radius: 10px;
-            }
+                width: 45px;
+                margin-right: 15px;
+                margin-bottom: 10px;
 
-            form {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                width: 100%;
-                overflow: hidden;
-    
-                div {
-                    margin-bottom: 5px;
-                    max-width: 370px;
-                    width: 100%;
-                    .f0011{
-                        border-color: black;
-                    }
-                    .country-code-input{
-                        border: none;
-                        border-bottom: 1px solid $medium-color;
-                        padding: 10px;
-                        width: 45px;
-                        margin-right: 15px;
-                        margin-bottom: 10px;
-
-                        &:focus{
-                            outline: none;
-                        }
-                    }
-                    .phone-number-input{
-                        border: none;
-                        border-bottom: 1px solid $medium-color;
-                        padding: 10px;
-                        margin-bottom: 10px;
-                        width: 83.6%;
-                        &:focus{
-                            outline: none;
-                        }
-                    }
-                }
-    
-                .b0011{
-                    text-transform: capitalize;
-                    background: #000;
-                    color: white;
-                    width: 100px;
-                    height: 45px;
-                }
-    
-                .button-wrapper{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .link-wrapper{
-                    display: flex;
-                    flex-direction: column;
-                    overflow: hidden;
-
-                    a{
-                        width: 100%;
-                        text-align: center;
-                        color: $medium-color;
-                        margin-top: 10px;
-                    }
+                &:focus {
+                    outline: none;
                 }
             }
 
-            .signup-error{
-                text-align: center;
-                font-weight: bold;
-                color: red;
+            .phone-number-input {
+                border: none;
+                border-bottom: 1px solid $medium-color;
+                padding: 10px;
+                margin-bottom: 10px;
+                width: 83.6%;
+
+                &:focus {
+                    outline: none;
+                }
             }
         }
+
+        .b0011 {
+            text-transform: capitalize;
+            background: #000;
+            color: white;
+            width: 100px;
+            height: 45px;
+        }
+
+        .button-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .link-wrapper {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+
+            a {
+                width: 100%;
+                text-align: center;
+                color: $medium-color;
+                margin-top: 10px;
+            }
+        }
+
+
+        .signup-error {
+            text-align: center;
+            font-weight: bold;
+            color: red;
+        }
     }
+
 }

@@ -32,17 +32,17 @@ const CategoryFilterSection = ({ filters, setFilters }) => {
 
 	return (
 		<Box display="flex" flexDirection="column" width='100%' padding={2}>
-			<Box display="flex">
+			<Box display="flex" flexWrap="wrap">
 				<div className="category" onClick={() => setDropList(!dropList)}>
 					Categories <ExpandMoreIcon />
 				</div>
-				<div className="category" onClick={() => setFilters({...filters, mainCategory:undefined})}>
+				<div className="category" onClick={() => setFilters({...filters, mainCategory:undefined, subCategory:undefined})}>
 					All Categories
 				</div>
 				{categories.map(category => <div onClick={() => addMainCategory(category.name)} className="category">{category.name}</div>)}
 			</Box>
 			<Collapse in={dropList}>
-				<Box display='flex' flexWrap="wrap">
+				<Box display='flex' justifyContent="center" flexWrap="wrap">
 					{categories.map(category => <Box display='flex' flexDirection="column" margin={1}>
 						<h4 onClick={() => addMainCategory(category.name)} className='cat-heading'>{category.name}</h4>
 						{category.subCategories.map(item => <Box onClick={() => addSubCategory(category.name,item)} 
