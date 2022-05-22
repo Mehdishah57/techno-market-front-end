@@ -6,8 +6,9 @@ import bidItem from '../services/bidItem';
 import Loader from './Loader';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ErrorIcon from '@mui/icons-material/Error';
+import socket from '../socket/socket';
 
-const BidForm = ({ product }) => {
+const BidForm = ({ product, tempBidItem, setTempBidItem }) => {
 	const [bid, setBid] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
@@ -15,20 +16,26 @@ const BidForm = ({ product }) => {
 	const [user] = useContext(UserContext);
 
 	const handleBid = async (e) => {
-		try {
-			if(success) setSuccess(false);
-			if(error) setError(false);
-			parseInt(e.currentTarget.value);
-			setBid(e.currentTarget.value);
-		} catch (error) { }
+		if (success) setSuccess(false);
+		if (error) setError(false);
+		let temp = parseInt(e.currentTarget.value);
+		if (Number.isNaN(temp)) return;
+		setBid(e.currentTarget.value);
 	}
 
 	const placeBid = async () => {
 		setLoading(true)
 		setSuccess(false);
 		const [data, error] = await bidItem(bid, product._id);
-		if (data) setSuccess(true);
-		else if(error) setError(true);
+		if (data) {
+			setSuccess(true)
+			setTempBidItem(data)
+			socket.emit("bid-event", {
+				by: { _id: user._id, name: user.name },
+				to: product.owner._id, price: bid, product: product.title
+			});
+		}
+		else if (error) setError(true);
 		setLoading(false);
 	}
 

@@ -9,16 +9,15 @@ import ProductBids from './ProductBids';
 import ProductImages from './Productmages';
 import fetchProductyById from '../services/fetchProductById';
 import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 import Map from './Map';
 import FormDialog from './FormDialog';
-import { Carousel } from 'react-responsive-carousel';
 
 import "../styles/productdetails.scss";
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState({});
 	const [open, setOpen] = useState(false);
+	const [tempBidItem, setTempBidItem] = useState({});
 	const [user] = useContext(UserContext);
 	const fetchProduct = useRef();
 
@@ -43,14 +42,14 @@ const ProductDetail = () => {
 	return (
 		<div className="product-wrapper">
 			<div className="back" onClick={handleBack}><ArrowBackIcon />Back</div>
-		
-				<ProductImages product={product} />
-				
-
+			<ProductImages product={product} />
 			<div className="title">{product.title}</div>
 			<div className="price">RS: {product.price}</div>
 			<div className="description">{product.description}</div>
-			{user?._id && <BidForm product={product} />}
+			{user?._id && <BidForm
+				product={product}
+				tempBidItem={tempBidItem}
+				setTempBidItem={setTempBidItem} />}
 			<div className="seller-name">Seller: {product.owner.name}</div>
 			{user?._id && product?.owner?._id !== user._id && <div className="actions">
 				<div className="icon-wrapper">
@@ -60,7 +59,7 @@ const ProductDetail = () => {
 					<MessageIcon fontSize="large" />
 				</div>
 			</div>}
-			<ProductBids productId={product._id} />
+			<ProductBids productId={product._id} tempBidItem={tempBidItem} />
 			<Map longitude={product.location.lng} latitude={product.location.lat} />
 			<FormDialog
 				open={open}
