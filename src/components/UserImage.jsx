@@ -10,11 +10,10 @@ import { Toaster, toast } from "react-hot-toast";
 //https://teachablemachine.withgoogle.com/models/MbZhmYO9X/
 
 const UserImage = () => {
-	const [image, setImage] = useState(null);
 	const [displayImage, setDisplayImage] = useState(null);
 	const [user, setUser] = useContext(UserContext);
 	const [loading, setLoading] = useState(false);
-	const [processing, setProcessing] = useState(false);
+	const [processing] = useState(false);
 
 	const handleChange = async e => {
 		if (e.currentTarget?.files[0]) {
@@ -49,11 +48,8 @@ const UserImage = () => {
 		}
 	}
 
-	const handleReset = () => {
-		setDisplayImage(null)
-		setImage(null);
-	};
-
+	const handleReset = () => setDisplayImage(null)
+	
 	const showError = (error) => {
 		console.log(error);
 		toast.error(error?.response?.data || error?.message || `There was an

@@ -13,8 +13,8 @@ import ProductSkeletonList from '../ProductSkeletonList';
 import CategoryFilterSection from './CategoryFilterSection';
 import SearchSection from '../SearchSection';
 
-const MainHome = ({filters, setFilters, search, setSearch}) => {
-		const [freshProducts, setFreshProducts] = useState([]);
+const MainHome = ({ filters, setFilters, search, setSearch }) => {
+	const [freshProducts, setFreshProducts] = useState([]);
 	const [mobiles, setMobiles] = useState([]);
 	const [bikes, setBikes] = useState([]);
 	const [pageNumber, setPageNumber] = useState(1);
@@ -23,10 +23,10 @@ const MainHome = ({filters, setFilters, search, setSearch}) => {
 	const fetchData = useRef(null);
 
 	fetchData.current = async () => {
-		const [freshProducts, freshProductsError] = await getFreshProducts(pageNumber, pageSize);
-		const [mobiles, mobileError] = await getCategoryWise("Mobiles");
-		const [bikes, bikeError] = await getCategoryWise("Bikes")
-		if (mobileError || bikeError || freshProductsError) 
+		const [freshProducts, freshProductsError] = await getFreshProducts(pageNumber, pageSize, filters.city);
+		const [mobiles, mobileError] = await getCategoryWise("Mobiles",filters.city);
+		const [bikes, bikeError] = await getCategoryWise("Bikes",filters.city)
+		if (mobileError || bikeError || freshProductsError)
 			return console.log(mobileError || bikeError || freshProductsError);
 		setFreshProducts(freshProducts);
 		setMobiles(mobiles);
@@ -36,7 +36,7 @@ const MainHome = ({filters, setFilters, search, setSearch}) => {
 
 	useEffect(() => {
 		fetchData.current();
-	}, [])
+	}, [filters.city])
 
 	const nextPage = () => freshProducts.length >= pageSize && setPageNumber(prevNumber => prevNumber + 1)
 
@@ -46,11 +46,11 @@ const MainHome = ({filters, setFilters, search, setSearch}) => {
 		<Toaster />
 		<CategoryFilterSection filters={filters} setFilters={setFilters} />
 		<SearchSection
-					search={search}
-					setSearch={setSearch}
-					filters={filters}
-					setFilters={setFilters}
-				/>
+			search={search}
+			setSearch={setSearch}
+			filters={filters}
+			setFilters={setFilters}
+		/>
 		<Carousel
 			width="700px"
 			autoPlay
@@ -107,44 +107,36 @@ const MainHome = ({filters, setFilters, search, setSearch}) => {
 				flexDirection="row"
 				flexWrap="wrap"
 			>
-				{loading? 
+				{loading ?
 					<ProductSkeletonList number={6} />
-				:mobiles.map(mobile => <ProductItem key={mobile._id} product={mobile} />)}
+					: mobiles.map(mobile => <ProductItem key={mobile._id} product={mobile} />)}
 			</Box>
 		</Box>
-		<Box 
-			display='flex' 
-			flexDirection='column' 
-			justifyContent="center" 
+		<Box
+			display='flex'
+			flexDirection='column'
+			justifyContent="center"
 			alignItems="center"
-			padding={2} 
+			padding={2}
 			width='100%'>
 			<Box display='flex' width="100%" flexDirection="row">
 				<h2>Bikes</h2>
 			</Box>
-			<Box 
-				display="flex" 
-				padding="10px" 
-				justifyContent='center' 
-				alignItems='center' 
-				gap="20px" 
-				width="100%" 
-				flexDirection="row" 
+			<Box
+				display="flex"
+				padding="10px"
+				justifyContent='center'
+				alignItems='center'
+				gap="20px"
+				width="100%"
+				flexDirection="row"
 				flexWrap="wrap"
 			>
-				{loading? 
-					<ProductSkeletonList />
-				:bikes.map(bike => <ProductItem key={bike._id} product={bike} />)}
+				{loading ?
+					<ProductSkeletonList number={6} />
+					: bikes.map(bike => <ProductItem key={bike._id} product={bike} />)}
 			</Box>
 		</Box>
-		{/* <Fab onClick={() => setShowFilter(true)} sx={{position:"absolute", bottom:"20px", right:"20px"}} color="inherit" aria-label="add">
-            <TuneIcon />
-          </Fab>
-        <Filters 
-            showFilter={showFilter} 
-            setShowFilter={setShowFilter}
-            applyFilters={applyFilters}
-        /> */}
 	</div>
 }
 

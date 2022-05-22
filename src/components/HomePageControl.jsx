@@ -4,7 +4,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const HomePageControl = ({previousPage,pageNumber,nextPage}) => {
 	return (
-		<div className="pages">
+		<div className="pages-control">
 			<div className="back" onClick={previousPage}><ArrowBackIcon /></div>
 			<div className="page">{pageNumber}</div>
 			<div className="next" onClick={nextPage}><ArrowForwardIcon /></div>
