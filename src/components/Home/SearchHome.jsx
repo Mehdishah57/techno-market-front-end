@@ -41,7 +41,9 @@ const SearchHome = ({ filters, setFilters, search, setSearch }) => {
 
   const handleChange = e => {
     const price = parseInt(e.target.value);
-    if(Number.isNaN(price)) return;
+    if(Number.isNaN(price) || !e.target.value) 
+      return setFilters({...filters, 
+        [e.target.name]:[e.target.name] === "Minimum Price" ? Number.NEGATIVE_INFINITY: Number.POSITIVE_INFINITY});
     setFilters({...filters, [e.target.name]: e.target.value});
   }
 
@@ -93,12 +95,14 @@ const SearchHome = ({ filters, setFilters, search, setSearch }) => {
             label='Min Price'
             name="Minimum Price"
             size='small'
+            type="number"
             onChange={handleChange}
           />
           <TextField 
             variant='outlined'
             label='Max Price'
             size='small'
+            type="number"
             name="Maximum Price"
             onChange={handleChange}
           />
