@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import login from '../services/login';
 import { UserContext } from './../global/UserContext';
 import { loginSchema } from '../schemas/login';
@@ -9,10 +9,11 @@ import { Formik } from 'formik';
 import "../styles/login.scss";
 
 const Login = () => {
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const [, setUser] = useContext(UserContext);
 
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	useEffect(()=>{
 		if(!error) return;
@@ -22,13 +23,17 @@ const Login = () => {
 	},[error])
 
 	const handleSubmit = async values => {
-		console.log(values)
+		setLoading(true);
 		const {data, error} = await login(values);
-		if(error) return setError(error.response?.data);
+		if(error) {
+			setError(error.response?.data);
+			setLoading(false);
+			return;
+		}
 		localStorage.setItem("fyptoken", data.token);
 		setUser(data.user);
-		window.location = "/home";
-		// navigate("/home", { replace: true });
+		// window.location = "/home";
+		navigate("/home", { replace: true });
 	}
 
 	return (
@@ -49,6 +54,7 @@ const Login = () => {
 							id="outlined-basic"
 							margin="dense"
 							label="Email"
+							disabled={loading}
 							error={errors.email}
 							helperText={errors.email}
 							variant="outlined"
@@ -62,6 +68,7 @@ const Login = () => {
 							className="f0011"
 							id="outlined-basic"
 							label="Password"
+							disabled={loading}
 							error={errors.password}
 							helperText={errors.password}
 							variant="outlined"
@@ -75,8 +82,7 @@ const Login = () => {
 							<Button
 								className="b0011"
 								variant="contained"
-								type="submit"
-								// disabled={loading}
+								disabled={loading}
 								onClick={handleSubmit}
 							>
 								Sign In

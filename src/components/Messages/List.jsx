@@ -1,16 +1,18 @@
 import React from 'react'
 import ListItem from './ListItem';
 import useMessageList from '../../hooks/useMessageList';
+import MessageSkeletonList from "./MessageSkeletonList";
 
 import "../../styles/Messages/list.scss";
 
 const List = () => {
-  const [list, error] = useMessageList();
+  const [list, error, loading] = useMessageList();
 
   return (
     <div className='list-wrapper'>
       {error && <>{error}</>}
-      {list.map( item => <ListItem key={item._id} item={item} />)}    
+      {loading && <MessageSkeletonList number={3} />}
+      {!loading && list.map( item => <ListItem key={item._id} item={item} />)}    
     </div>
   )
 }
