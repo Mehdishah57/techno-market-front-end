@@ -19,22 +19,24 @@ const UserProvider = ({ children }) => {
     localStorage.removeItem("fyptoken");
   }
 
-  socket.off("bid-recieved").on("bid-recieved", data => {
-    toast.success(`${data.by.name} placed a bid of ${data.price} on ${data.product}`,{duration:6000})
-  })
-
-  socket.off("notification").on('notification', (data)=>{
-    let temp = user.notifications ? [...user.notifications] : [];
-    const notification = temp.find(item => item.id === data.sender);
-    if(!notification) temp.push({id: data.sender, count:1});
-    else {
-      notification.count++;
-      temp = temp.filter(item => item.id !== notification.sender);
-      temp.push(notification);
-    }
-    setUser({...user, notifications: temp});
-    toast.success(`${data.name}: ${data.message}`,{duration: 5000})
-  })
+  useEffect(()=>{
+    socket.off("bid-recieved").on("bid-recieved", data => {
+      toast.success(`${data.by.name} placed a bid of ${data.price} on ${data.product}`,{duration:6000})
+    })
+  
+    socket.off("notification").on('notification', (data)=>{
+      let temp = user.notifications ? [...user.notifications] : [];
+      const notification = temp.find(item => item.id === data.sender);
+      if(!notification) temp.push({id: data.sender, count:1});
+      else {
+        notification.count++;
+        temp = temp.filter(item => item.id !== notification.sender);
+        temp.push(notification);
+      }
+      setUser({...user, notifications: temp});
+      toast.success(`${data.name}: ${data.message}`,{duration: 5000})
+    })
+  },[user])
 
   useEffect(() => {
     fetchUser.current();

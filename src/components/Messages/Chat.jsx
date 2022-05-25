@@ -20,6 +20,7 @@ const Chat = () => {
   const [chat, setChat] = useState({ messages: [] });
   const fetchChat = useRef(null);
   const clearNotifications = useRef(null);
+  const divRef = useRef(null);
   const { id } = useParams();
 
   fetchChat.current = async () => {
@@ -82,11 +83,20 @@ const Chat = () => {
     }
   }, [chat])
 
+  useEffect(()=>{
+    setTimeout(()=>divRef.current?.scrollIntoView({behaviour:"smooth"}),1000)
+  },[])
+
+  useEffect(()=>{
+    divRef.current?.scrollIntoView({behaviour:"smooth"})
+  },[chat])
+
   const handleSubmit = async () => {
+    if (!message) return toast.error("We are unable to deliever your message! 😗😗😗");
     let otherUser = chat.idOne._id.toString() === user._id ? chat.idTwo._id.toString() : chat.idOne._id.toString();
+    socket.emit("message", { id: otherUser, message, name: user.name, sender: user._id })
     const [, error] = await sendMessage(otherUser, message);
     if (error) return toast.error("We are unable to deliever your message! 😗😗😗");
-    socket.emit("message", { id: otherUser, message, name: user.name, sender: user._id })
     setMessage("");
   }
 
@@ -108,6 +118,7 @@ const Chat = () => {
             <div key={index} className="his">{item.message}</div>
             <Avatar alt={user.name} src={user._id === chat.idOne._id ? chat.idTwo?.image?.url : chat.idOne?.image?.url} />
           </div>)}
+          <div ref={divRef}></div>
       </div>
       <div className='message-input'>
         <TextField

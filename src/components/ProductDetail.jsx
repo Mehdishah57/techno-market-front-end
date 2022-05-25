@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../global/UserContext';
+import Box from "@mui/material/Box";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CallIcon from '@mui/icons-material/Call';
 import MessageIcon from '@mui/icons-material/Message';
@@ -42,7 +43,9 @@ const ProductDetail = () => {
 	return (
 		<div className="product-wrapper">
 			<div className="back" onClick={handleBack}><ArrowBackIcon />Back</div>
-			<ProductImages product={product} />
+			<Box display='flex' justifyContent='center' alignItems='center' width='50%' maxWidth='590px'>
+				<ProductImages product={product} />
+			</Box>
 			<div className="title">{product.title}</div>
 			<div className="price">RS: {product.price}</div>
 			<div className="description">{product.description}</div>

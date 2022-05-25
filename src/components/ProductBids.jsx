@@ -45,6 +45,7 @@ const ProductBids = ({ productId, tempBidItem }) => {
       setPageNumber(prevNo => prevNo + 2)
   }
 
+  if(!bids.length) return null
   return <div className="product-bids-wrapper">
     <h2>Bids</h2>
     {bids.map(bid => <BidItem bid={bid} key={JSON.stringify(bid)} deletebid={deleteBids} />)}
