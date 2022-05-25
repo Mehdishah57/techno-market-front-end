@@ -1,54 +1,80 @@
 @import "../../../base";
 
-.sell-wrapper{
+#form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border: 2px solid $primary-color;
+    margin-top: 20px;
+}
+
+.post-button{
+    padding: 10px !important;
+    align-self: center !important;
+    margin-top: 10px !important;
+    background-color: $primary-color !important;
+    color: $text-color !important;
+    max-width: 270px !important;
+    transition: all 0.2s ease-in-out !important;
+
+    &:hover{
+        background-color: rgb(42, 42, 42) !important;
+    }
+}
+.text-wrapper{
     @include flex();
     width: 100%;
-
-    .location-wrapper{
-        width: 95%;
+    margin-top: 10px;
+    .textarea-error{
+        border-color: $error;
+        color: $error;
     }
-
-    .category-wrapper{
-        width: 95%;
-    }
-
-    .text-wrapper{
-        @include flex();
-        width: 95%;
-
-        textarea{
-            width: 100%;
-            height: 450px;
-            padding: 10px;
-        }
-    }
-
-    .image-wrapper{
-        @include flex($fd: row);
-        flex-wrap: wrap;
+    textarea{
         width: 100%;
+        height: 450px;
+        padding: 10px;
+        font-size: 16px;
+        border-width: 2px;
+        border-radius: 5px;
+    }
+}
 
-        div{
-            @include flex();
-            position: relative;
-            border: 1px solid $primary-color;
-            border-radius: 5px;
-            height: 130px;
-            width: 130px;
-            overflow: hidden;
+.category-wrapper{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
-            img{
-                width: 100%;
-            }
+.location-wrapper{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
-            input{
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                z-index: 99999;
-                opacity: 0;
-                cursor: pointer;
-            }
+.image-wrapper{
+    @include flex($fd: row);
+    flex-wrap: wrap;
+    width: 100%;
+
+    div{
+        @include flex();
+        position: relative;
+        border: 1px solid $primary-color;
+        border-radius: 5px;
+        height: 130px;
+        width: 130px;
+        overflow: hidden;
+
+        img{
+            width: 100%;
+        }
+
+        input{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            opacity: 0;
+            cursor: pointer;
         }
     }
 }

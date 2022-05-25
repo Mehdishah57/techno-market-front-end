@@ -6,8 +6,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import getCategories from '../../services/getCategories';
 import { UserContext } from './../../global/UserContext';
+import FormHelperText from '@mui/material/FormHelperText';
 
-const CategorySection = ({ state, setState }) => {
+const CategorySection = ({ 
+  handleCategoryChange, 
+  handleSubCategoryChange, 
+  errorCategory,
+  errorSubCategory }) => {
   const [mainCategory, setMainCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
 
@@ -25,40 +30,43 @@ const CategorySection = ({ state, setState }) => {
     fetchData.current();
   }, [])
 
-  const handleChange = (e,name) => {
-    setState({ ...state, [name]: e.target.value })
+  const exec = (e,name) => {
     name === "category" ? setMainCategory(e.target.value) : setSubCategory(e.target.value)
   }
 
   return (
     <div className="category-wrapper">
-      <Box >
+      <Box marginBottom="10px">
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Main Category</InputLabel>
+          <InputLabel style={errorCategory?{color:'#d32f2f'}:{}} id="demo-simple-select-label">Main Category</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={mainCategory}
             label="Age"
-            onChange={(e)=>handleChange(e,"category")}
+            error={errorCategory}
+            onChange={(e)=>{handleCategoryChange(e.target.value);exec(e,"category")}}
           >
             {user.categories?.map(item => <MenuItem key={item._id} value={item.name}>{item.name}</MenuItem>)}
           </Select>
+          {errorCategory? <FormHelperText style={{color:'#d32f2f'}}>{errorCategory}</FormHelperText>:null}
         </FormControl>
       </Box>
-      <Box  marginTop={2}>
+      <Box>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Sub-Category</InputLabel>
+          <InputLabel style={errorSubCategory?{color:'#d32f2f'}:{}} id="demo-simple-select-label">Sub-Category</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={subCategory}
             name="subCategory"
             label="Age"
-            onChange={(e)=>handleChange(e,"subCategory")}
+            error={errorSubCategory}
+            onChange={(e)=>{handleSubCategoryChange(e.target.value);exec(e,"subCategory")}}
           >
             {user.categories?.map(item => item.name === mainCategory && item.subCategories?.map(itm => <MenuItem key={itm} value={itm}>{itm}</MenuItem>))}
           </Select>
+          {errorSubCategory? <FormHelperText style={{color:'#d32f2f'}}>{errorSubCategory}</FormHelperText>:null}
         </FormControl>
       </Box>
     </div>

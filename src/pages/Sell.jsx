@@ -1,18 +1,17 @@
-import React, { useContext, useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { UserContext } from './../global/UserContext';
+import React, { useState } from 'react';
 import ImageSection from './../components/Sell/ImageSection';
 import CategorySection from './../components/Sell/CategorySection';
 import { Toaster, toast } from 'react-hot-toast';
 import Button from '@mui/material/Button';
-import validateProduct from './../schemas/product';
 import LocationSection from './../components/Sell/LocationSection';
 import addProduct from './../services/addProduct';
-import getMyAd from '../services/getMyAd';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TextInput from '../components/Sell/TextInput';
 import TextArea from '../components/Sell/TextArea';
 import SimpleBackdrop from '../components/BackDrop';
-
+import Box from '@mui/material/Box';
+import { Form, Formik } from 'formik';
+import { productSchema } from "../schemas/product"
 
 import "../styles/Sell/sell.scss";
 
@@ -20,67 +19,159 @@ const Sell = () => {
 	const [state, setState] = useState({});
 	const [color, setColor] = useState("inherit");
 	const [loading, setLoading] = useState(false);
-	const [user] = useContext(UserContext);
-	const fetchAd = useRef(null);
-	const { id } = useParams();
+
 	const navigation = useNavigate();
 
-	const handleClick = async () => {
+	const handleSubmit = async (values) => {
+		console.log(values)
 		try {
 			setLoading(true);
-			await validateProduct(state);
-			const [data, error] = await addProduct(state);
+			let body = { ...values, ...state };
+			if (!body?.picture?.image1) return toast.error("Please select atleast one image");
+			const [data, error] = await addProduct(body);
 			if (data) return navigation("/profile/my-ads");
 			toast.error(error.response?.data || "An Error occured while posting ad 😒😒😒😒");
 			setColor("error");
-
+			setLoading(false)
 		} catch (error) {
-			if (!state?.picture) toast.error("Atleast one image is required! 😒😒")
-			else toast.error("An Error occured while posting ad 😒😒😒😒");
+			toast.error(`${error.errors[0]}`);
 			setColor("error");
 			setLoading(false);
 		}
 	}
 
-	fetchAd.current = async () => {
-		const [data, error] = await getMyAd(id);
-		if (error) return;
-		setState({
-			title: data.title,
-			price: data.price,
-			description: data.description,
-			category: data.category,
-			subCategory: data.subCategory,
-			picture: data.picture
-		})
-	}
-
-	useLayoutEffect(() => {
-		if (!id) return;
-		fetchAd.current();
-	}, [id])
-
-	useEffect(() => {
-		setState({ owner: user._id })
-	}, [user._id])
-
 	return (
-		<div className="sell-wrapper" style={{pointerEvents:loading?'none':'all'}}>
-			{ loading && <SimpleBackdrop open={loading} />}
+		<Box
+			display="flex"
+			flexDirection="column"
+			justifyContext="center"
+			alignItems='center'
+			width="100%"
+			padding="10px"
+		>
 			<Toaster />
+			<SimpleBackdrop loading={loading} />
 			<ImageSection state={state} setState={setState} />
-			<TextInput value={state.title} label="title" state={state} setState={setState} />
-			<TextInput value={state.price} label="price" state={state} setState={setState} />
-			<CategorySection state={state} setState={setState} />
-			<LocationSection state={state} setState={setState} />
-			<TextArea
-				value={state.description}
-				placeholder="Description..."
-				state={state}
-				setState={setState}
-			/>
-			<Button disabled={loading} variant="contained" onClick={handleClick} color={color}>Publish</Button>
-		</div>
+			<Formik
+				initialValues={{
+					title: "",
+					price: "",
+					description: "",
+					location: "",
+					category: "",
+					subCategory: "",
+					lat: "",
+					lng: ""
+				}}
+				validationSchema={productSchema}
+				onSubmit={handleSubmit}
+
+			>
+				{({ handleChange, handleSubmit, errors }) => <Form
+					id="form"
+					onSubmit={handleSubmit}
+				>
+					<Box
+						width="100%"
+						borderBottom="2px solid black"
+						padding="40px"
+					>
+						<Box
+							width="100%"
+						>
+							<h2>Product Title</h2>
+						</Box>
+						<TextInput
+							value={state.title}
+							label="title"
+							error={errors.title}
+							handleChange={handleChange("title")}
+						/>
+					</Box>
+					<Box
+						width="100%"
+						borderBottom="2px solid black"
+						padding="40px"
+					>
+						<Box
+							width="100%"
+						>
+							<h2>Price</h2>
+						</Box>
+						<TextInput
+							value={state.price}
+							label="price"
+							error={errors.price}
+							handleChange={handleChange("price")}
+						/>
+					</Box>
+					<Box
+						width="100%"
+						borderBottom="2px solid black"
+						padding="40px"
+					>
+						<Box
+							width="100%"
+						>
+							<h2>Choose a category for your item</h2>
+						</Box>
+						<CategorySection
+							errorCategory={errors.category}
+							errorSubCategory={errors.subCategory}
+							handleCategoryChange={handleChange("category")}
+							handleSubCategoryChange={handleChange("subCategory")}
+						/>
+					</Box>
+					<Box
+						width="100%"
+						borderBottom="2px solid black"
+						padding="40px"
+					>
+						<Box
+							width="100%"
+						>
+							<h2>Choose a location</h2>
+						</Box>
+						<LocationSection
+							error={errors.location}
+							handleChange={handleChange("location")}
+						/>
+					</Box>
+					<Box
+						width="100%"
+						borderBottom="2px solid black"
+						padding="40px"
+					>
+						<Box
+							width="100%"
+						>
+							<h2>Add a Description</h2>
+						</Box>
+						<TextArea
+							value={state.description}
+							placeholder="Description..."
+							onChange={handleChange("description")}
+							error={errors.description}
+						/>
+					</Box>
+					<Box
+						width="100%"
+						borderBottom="2px solid black"
+						padding="40px"
+					>
+						<Button
+							disabled={loading}
+							variant="contained"
+							className="post-button"
+							type="submit"
+							color={color}
+						>
+							Publish Now
+						</Button>
+					</Box>
+				</Form>}
+			</Formik>
+		</Box>
 	)
 }
 

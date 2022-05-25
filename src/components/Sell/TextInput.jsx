@@ -1,21 +1,21 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 
-const TextInput = ({ value, label, state, setState }) => {
+const TextInput = ({ value, label, handleChange, error }) => {
 	return (
-		<div className='text-wrapper'>
-			<TextField
-				size="medium"
-				className="f0011"
-				id="outlined-basic"
-				sx={{ width: "100%" }}
-				margin="dense"
-				label={label}
-				variant="outlined"
-				autoComplete="off"
-				onBlur={(e) => setState({...state, [label]:e.currentTarget.value})}
-			/>
-		</div>
+		<TextField
+			size="medium"
+			className="f0011"
+			id="outlined-basic"
+			margin="dense"
+			fullWidth
+			label={label}
+			error={error}
+			helperText={error}
+			variant="outlined"
+			autoComplete="off"
+			onChange={handleChange}
+		/>
 	)
 }
 

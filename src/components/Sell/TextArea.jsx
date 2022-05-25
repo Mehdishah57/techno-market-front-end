@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-const TextArea = ({ state, setState, placeholder, value }) => {
-	const [description, setDescription] = useState("");
+const TextArea = ({ placeholder, onChange, error }) => {
+	const [value, setValue] = useState("");
 	return (
 		<div className='text-wrapper'>
 			<textarea 
+				className={error?"textarea-error":""}
 				placeholder={placeholder} 
-				value={description}
-				onBlur={() => setState({ ...state, description: description })}
-				onChange={e => setDescription(e.currentTarget.value)}>
+				value={value}
+				onChange={e => setValue(e.target.value)}
+				onBlur={()=>onChange(value)}>
 			</textarea>
 		</div>
 	)

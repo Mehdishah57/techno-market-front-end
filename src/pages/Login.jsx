@@ -15,17 +15,17 @@ const Login = () => {
 
 	const navigate = useNavigate();
 
-	useEffect(()=>{
-		if(!error) return;
+	useEffect(() => {
+		if (!error) return;
 		const id = setTimeout(() => setError(""), 4000);
 
 		return () => clearTimeout(id)
-	},[error])
+	}, [error])
 
 	const handleSubmit = async values => {
 		setLoading(true);
-		const {data, error} = await login(values);
-		if(error) {
+		const { data, error } = await login(values);
+		if (error) {
 			setError(error.response?.data);
 			setLoading(false);
 			return;
@@ -77,21 +77,21 @@ const Login = () => {
 							onChange={handleChange("password")}
 						/>
 					</div>
-					{error ? <div className='login-error'>{error}</div>: null}
+					{error ? <div className='login-error'>{error}</div> : null}
 					<div className="button-wrapper">
-							<Button
-								className="b0011"
-								variant="contained"
-								disabled={loading}
-								onClick={handleSubmit}
-							>
-								Sign In
-							</Button>
-						</div>
-						<div className="link-wrapper">
-							<Link to="/signup">Don't have an account? Create one</Link>
-							<Link to="/forgotpassword">Forgot your password? Click here</Link>
-						</div>
+						<Button
+							className="b0011"
+							variant="contained"
+							disabled={loading}
+							onClick={handleSubmit}
+						>
+							Sign In
+						</Button>
+					</div>
+					<div className="link-wrapper">
+						<Link to="/signup">Don't have an account? Create one</Link>
+						<Link to="/forgotpassword">Forgot your password? Click here</Link>
+					</div>
 				</div>}
 			</Formik>
 		</div>
@@ -122,10 +122,10 @@ const Login = () => {
 // 			await loginSchema.validate({ email, password });
 // 			const { data, error } = await login(email, password);
 // 			if (error) return showError(error);
-			// localStorage.setItem("fyptoken", data.token);
-			// setUser(data.user);
-			// window.location = "/home";
-			// // navigate("/home", { replace: true });
+// localStorage.setItem("fyptoken", data.token);
+// setUser(data.user);
+// window.location = "/home";
+// // navigate("/home", { replace: true });
 // 		} catch (error) {
 // 			error.name === "ValidationError" && (error.validationError = true)
 // 			showError(error)
@@ -167,21 +167,21 @@ const Login = () => {
 // 		onChange={e => { setPassword(e.currentTarget.value); setError("") }}
 // 	/>
 // </div>
-						// <div className="button-wrapper">
-						// 	<Button
-						// 		className="b0011"
-						// 		variant="contained"
-						// 		type="submit"
-						// 		disabled={loading}
-						// 		onClick={handleLogin}
-						// 	>
-						// 		Sign In
-						// 	</Button>
-						// </div>
-						// <div className="link-wrapper">
-						// 	<Link to="/signup">Don't have an account? Create one</Link>
-						// 	<Link to="/forgotpassword">Forgot your password? Click here</Link>
-						// </div>
+// <div className="button-wrapper">
+// 	<Button
+// 		className="b0011"
+// 		variant="contained"
+// 		type="submit"
+// 		disabled={loading}
+// 		onClick={handleLogin}
+// 	>
+// 		Sign In
+// 	</Button>
+// </div>
+// <div className="link-wrapper">
+// 	<Link to="/signup">Don't have an account? Create one</Link>
+// 	<Link to="/forgotpassword">Forgot your password? Click here</Link>
+// </div>
 // 					</form>
 // 				</div>
 // 			</div>
