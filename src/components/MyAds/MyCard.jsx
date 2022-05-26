@@ -15,13 +15,15 @@ const MyCard = ({ item, handleDelete, handleActivation }) => {
     navigate(`/sell/${item._id}`);
   }
 
+  const handleProduct = () => navigate(`/home/item/${item._id}`)
+
   return (
     <div className='mycard-wrapper'>
       <div className="menu">
         <div onClick={() => handleDelete(item._id)} className='icons'>
           <CloseIcon color='error' />
         </div>
-        <div className='icons'><EditIcon color='info' /></div>
+        <div onClick={handleClick} className='icons'><EditIcon color='info' /></div>
         {item.isActive && <div onClick={()=>handleActivation(item._id)} className='icons'>
           <VisibilityIcon color='success' />
         </div>}
@@ -29,7 +31,7 @@ const MyCard = ({ item, handleDelete, handleActivation }) => {
           <VisibilityOffIcon color='warning' />
         </div>}
       </div>
-      <ProductImage handleClick={handleClick} product={item} />
+      <ProductImage handleClick={handleProduct} product={item} />
       <div className="info">
         <div className="title">{item.title}</div>
         <div className="price">RS: {item.price}</div>

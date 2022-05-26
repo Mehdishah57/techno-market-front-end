@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const LocationSection = ({ handleChange, error }) => {
+const LocationSection = ({ handleChange, error, disabled }) => {
 	const [data, setData] = useState([]);
 	const [value, setValue] = useState({});
 	const fetchData = useRef(null);
@@ -31,6 +31,7 @@ const LocationSection = ({ handleChange, error }) => {
 						id="demo-simple-select"
 						value={value.city}
 						label="Age"
+						disabled={disabled}
 						error={error}
 						onChange={(e)=>handleChange(e.target.value)}
 					>

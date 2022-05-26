@@ -12,7 +12,8 @@ const CategorySection = ({
   handleCategoryChange, 
   handleSubCategoryChange, 
   errorCategory,
-  errorSubCategory }) => {
+  errorSubCategory,
+disabled }) => {
   const [mainCategory, setMainCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
 
@@ -44,6 +45,7 @@ const CategorySection = ({
             id="demo-simple-select"
             value={mainCategory}
             label="Age"
+            disabled={disabled}
             error={errorCategory}
             onChange={(e)=>{handleCategoryChange(e.target.value);exec(e,"category")}}
           >
@@ -61,6 +63,7 @@ const CategorySection = ({
             value={subCategory}
             name="subCategory"
             label="Age"
+            disabled={disabled}
             error={errorSubCategory}
             onChange={(e)=>{handleSubCategoryChange(e.target.value);exec(e,"subCategory")}}
           >

@@ -51,7 +51,7 @@
 }
 
 .image-wrapper{
-    @include flex($fd: row);
+    @include flex($fd: row, $jc: flex-start);
     flex-wrap: wrap;
     width: 100%;
 
@@ -63,6 +63,25 @@
         height: 130px;
         width: 130px;
         overflow: hidden;
+
+        .update{
+            position: absolute;
+            z-index: 999999;
+            width: 30px;
+            height: 30px;
+            top: 0px;
+            right: 0px;
+            border-radius: 50%;
+            background-color: red;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+
+            &:hover{
+                background-color: rgb(255, 108, 108);
+            }
+        }
 
         img{
             width: 100%;

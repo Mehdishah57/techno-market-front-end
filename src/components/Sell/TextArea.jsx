@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-const TextArea = ({ placeholder, onChange, error }) => {
-	const [value, setValue] = useState("");
+const TextArea = ({ placeholder, onChange, error, update, value }) => {
+	const [text, setText] = useState("");
+
+	useEffect(()=>{
+		if(!update || !value) return;
+		setText(value)
+	},[update, value])
+
 	return (
 		<div className='text-wrapper'>
 			<textarea 
 				className={error?"textarea-error":""}
 				placeholder={placeholder} 
-				value={value}
-				onChange={e => setValue(e.target.value)}
-				onBlur={()=>onChange(value)}>
+				value={text}
+				onChange={e => setText(e.target.value)}
+				onBlur={()=>onChange(text)}>
 			</textarea>
 		</div>
 	)

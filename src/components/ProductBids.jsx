@@ -40,19 +40,11 @@ const ProductBids = ({ productId, tempBidItem }) => {
     setBids(temp);
   }
 
-  const handleClick = () => {
-    if(bids.length === pageSize)
-      setPageNumber(prevNo => prevNo + 2)
-  }
-
   if(!bids.length) return null
   return <div className="product-bids-wrapper">
     <h2>Bids</h2>
     {bids.map(bid => <BidItem bid={bid} key={JSON.stringify(bid)} deletebid={deleteBids} />)}
     {tempBidItem.userId && showTempBid && <BidItem bid={tempBidItem} deletebid={deleteBids} />}
-    <Button className="b0011" variant="outlined" onClick={handleClick}>
-      Load More
-    </Button>
   </div>;
 };
 

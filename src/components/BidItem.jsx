@@ -7,11 +7,13 @@ import AlertDialog from './AlertDialog';
 import bidDelete from './../services/bidDelete';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import SendIcon from '@mui/icons-material/Send';
 import "../styles/biditem.scss";
+import FormDialog from './FormDialog';
 
 const BidItem = ({ bid, deletebid }) => {
 	const [open, setOpen] = useState(false);
+	const [openMessage, setOpenMessage] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [user] = useContext(UserContext);
 
@@ -42,6 +44,19 @@ const BidItem = ({ bid, deletebid }) => {
 						task={deleteBid}
 						taskArguments={[]}
 					/>
+				</div>)
+			}
+			{((user && user._id === bid.productOwner) || (bid.userId === user._id)) &&
+				(<div className="update-bid">
+					<SendIcon onClick={() => setOpenMessage(true)} color='primary' />
+					<FormDialog
+						open={openMessage}
+						setOpen={setOpenMessage}
+						title={`Message ${bid.by?.name?.slice(0, 15)}`}
+						description={`Price: ${bid.price}`}
+						id={bid?.by?._id}
+						/>
+
 				</div>)
 			}
 			<Backdrop
