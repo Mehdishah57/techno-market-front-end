@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, useLayoutEffect } from 'react';
 import { UserContext } from '../../global/UserContext';
 import getChat from '../../services/getChat';
 import { Toaster, toast } from "react-hot-toast";
@@ -83,13 +83,17 @@ const Chat = () => {
     }
   }, [chat])
 
-  useEffect(()=>{
-    setTimeout(()=>divRef.current?.scrollIntoView({behaviour:"smooth"}),1000)
+  useLayoutEffect(()=>{
+    setTimeout(()=>divRef.current?.scrollIntoView({behaviour:"smooth"}),2000)
   },[])
 
-  useEffect(()=>{
+  // useEffect(()=>{
+  //   divRef.current?.scrollIntoView({behaviour:"smooth"})
+  // },[chat])
+
+  const scrollToDown = () => {
     divRef.current?.scrollIntoView({behaviour:"smooth"})
-  },[chat])
+  }
 
   const handleSubmit = async () => {
     if (!message) return toast.error("We are unable to deliever your message! 😗😗😗");
@@ -113,10 +117,12 @@ const Chat = () => {
             <div key={index} className="my">
               {item.message}
             </div>
+            {index === chat.messages.length-1 ? scrollToDown(): null}
           </div> :
           <div className='message-item-2'>
             <div key={index} className="his">{item.message}</div>
             <Avatar alt={user.name} src={user._id === chat.idOne._id ? chat.idTwo?.image?.url : chat.idOne?.image?.url} />
+            {index === chat.messages.length-1 ? scrollToDown(): null}
           </div>)}
           <div ref={divRef}></div>
       </div>
