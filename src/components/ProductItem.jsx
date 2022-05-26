@@ -15,7 +15,7 @@ const ProductItem = (props) => {
 	const navigate = useNavigate();
 
 	const handleClick = () => {
-		navigate(`/home/${props.product._id}`)
+		navigate(`/home/item/${props.product._id}`)
 	}
 
 	const addToFavourites = async () => {

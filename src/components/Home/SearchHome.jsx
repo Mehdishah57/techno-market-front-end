@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import CategoryFilterSection from './CategoryFilterSection';
 import SearchSection from '../SearchSection';
-import getProducts from '../../services/getProducts';
 import ProductItem from '../ProductItem';
 import ProductSkeletonList from '../ProductSkeletonList';
 import HomePageControl from '../HomePageControl';
@@ -12,31 +11,15 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 
-const SearchHome = ({ filters, setFilters, search, setSearch }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
-  const fetchProducts = useRef();
-
-  fetchProducts.current = async (payload) => {
-    try {
-      setLoading(true);
-      const { data, error } = await getProducts(payload);
-      if (error) console.log(error);
-      setProducts(data || []);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchProducts.current({ pageNumber, search, filters });
-  }, [pageNumber, search, filters]);
-
-  const nextPage = () => products.length >= 10 && setPageNumber(prevNumber => prevNumber + 1)
-
-  const previousPage = () => pageNumber > 1 && setPageNumber(prevNumber => prevNumber - 1)
-
+const SearchHome = ({ 
+  filters, 
+  setFilters, 
+  search, setSearch,
+  products,
+  loading, setLoading,
+   pageNumber,
+  nextPage, previousPage
+}) => {
   const handlePriceSortChange = e => setFilters({...filters, priceSort:[e.target.value]});
 
   const handleChange = e => {

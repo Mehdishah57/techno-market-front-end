@@ -26,7 +26,7 @@ const CategoryFilterSection = ({ filters, setFilters }) => {
 	const addMainCategory = mainCategory => {
 		if(filters?.mainCategory === mainCategory) return;
 		setFilters({...filters, mainCategory, subCategory: undefined});
-		navigate("../search")
+		navigate(`../search`)
 	}
 
 	const addSubCategory = (mainCategory, subCategory) => {

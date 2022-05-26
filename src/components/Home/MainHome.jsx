@@ -11,45 +11,19 @@ import ProductSkeletonList from "../ProductSkeletonList";
 import CategoryFilterSection from "./CategoryFilterSection";
 import SearchSection from "../SearchSection";
 
-const MainHome = ({ filters, setFilters, search, setSearch }) => {
-  const [freshProducts, setFreshProducts] = useState([]);
-  const [mobiles, setMobiles] = useState([]);
-  const [bikes, setBikes] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize] = useState(10);
-  const [loading, setLoading] = useState(true);
-  const fetchData = useRef(null);
-
-  fetchData.current = async () => {
-    const [freshProducts, freshProductsError] = await getFreshProducts(
-      pageNumber,
-      pageSize,
-      filters.city
-    );
-    const [mobiles, mobileError] = await getCategoryWise(
-      "Mobiles",
-      filters.city
-    );
-    const [bikes, bikeError] = await getCategoryWise("Bikes", filters.city);
-    if (mobileError || bikeError || freshProductsError)
-      return console.log(mobileError || bikeError || freshProductsError);
-    setFreshProducts(freshProducts);
-    setMobiles(mobiles);
-    setBikes(bikes);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData.current();
-  }, [filters.city]);
-
-  const nextPage = () =>
-    freshProducts.length >= pageSize &&
-    setPageNumber((prevNumber) => prevNumber + 1);
-
-  const previousPage = () =>
-    pageNumber > 1 && setPageNumber((prevNumber) => prevNumber - 1);
-
+const MainHome = ({
+  filters,
+  setFilters, 
+  search,
+  setSearch,
+  freshProducts, setFreshProducts,
+  mobiles, setMobiles,
+  bikes, setBikes,
+  vehicles, setVehicles,
+  electronics, setElectronics ,
+  loading, tabsLoading,
+  pageNumber, nextPage, previousPage
+}) => {
   return (
     <div className="home-wrapper">
       <Toaster />
@@ -121,7 +95,7 @@ const MainHome = ({ filters, setFilters, search, setSearch }) => {
           flexDirection="row"
           flexWrap="wrap"
         >
-          {loading ? (
+          {tabsLoading ? (
             <ProductSkeletonList number={6} />
           ) : (
             mobiles.map((mobile) => (
@@ -151,10 +125,66 @@ const MainHome = ({ filters, setFilters, search, setSearch }) => {
           flexDirection="row"
           flexWrap="wrap"
         >
-          {loading ? (
+          {tabsLoading ? (
             <ProductSkeletonList number={6} />
           ) : (
             bikes.map((bike) => <ProductItem key={bike._id} product={bike} />)
+          )}
+        </Box>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        padding={2}
+        width="100%"
+      >
+        <Box display="flex" width="100%" flexDirection="row">
+          <h2>Vehicles</h2>
+        </Box>
+        <Box
+          display="flex"
+          padding="10px"
+          justifyContent="center"
+          alignItems="center"
+          gap="20px"
+          width="100%"
+          flexDirection="row"
+          flexWrap="wrap"
+        >
+          {tabsLoading ? (
+            <ProductSkeletonList number={6} />
+          ) : (
+            vehicles.map((vehicle) => <ProductItem key={vehicle._id} product={vehicle} />)
+          )}
+        </Box>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        padding={2}
+        width="100%"
+      >
+        <Box display="flex" width="100%" flexDirection="row">
+          <h2>Electronics</h2>
+        </Box>
+        <Box
+          display="flex"
+          padding="10px"
+          justifyContent="center"
+          alignItems="center"
+          gap="20px"
+          width="100%"
+          flexDirection="row"
+          flexWrap="wrap"
+        >
+          {tabsLoading ? (
+            <ProductSkeletonList number={6} />
+          ) : (
+            electronics.map((electronic) => <ProductItem key={electronic._id} product={electronic} />)
           )}
         </Box>
       </Box>
