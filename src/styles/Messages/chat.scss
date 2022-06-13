@@ -4,14 +4,12 @@
     @include flex();
     width: auto;
     padding: 10px;
-    height: 100%;
+    overflow: auto;
     // max-height: 80vh;
 
     .text-wrapper{
         @include flex();
         width: 100%;
-        height: 80vh;
-        overflow: auto;
 
         .message-item-2{
             @include flex($fd: row);

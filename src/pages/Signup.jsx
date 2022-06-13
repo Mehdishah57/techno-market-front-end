@@ -121,8 +121,8 @@ const Signup = () => {
 								variant="outlined"
 								type="text"
 								disabled={loading}
-								error={errors.phoneNumber}
-								helperText={errors.phoneNumber}
+								error={errors.phoneNumber || errors.countryCode}
+								helperText={errors.phoneNumber || errors.countryCode}
 								autoComplete='off'
 								fullWidth={true}
 								onChange={handleChange("phoneNumber")}

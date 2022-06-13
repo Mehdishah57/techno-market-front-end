@@ -46,7 +46,7 @@ const BidItem = ({ bid, deletebid }) => {
 					/>
 				</div>)
 			}
-			{((user && user._id === bid.productOwner) || (bid.userId === user._id)) &&
+			{((user && user._id === bid.productOwner)) &&
 				(<div className="update-bid">
 					<SendIcon onClick={() => setOpenMessage(true)} color='primary' />
 					<FormDialog

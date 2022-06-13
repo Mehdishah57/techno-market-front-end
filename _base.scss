@@ -6,23 +6,6 @@ $price: rgb(40, 163, 40);
 $alpha: rgba(0, 0, 0, 0.247);
 $blue: #1976d2;
 
-$dp: rgb(40, 167, 67);
-$dp: rgb(19, 89, 180);
-$dp: rgb(12, 93, 199);
-$dp: rgb(58, 196, 120);
-$dp: rgb(180, 106, 50);
-$dp: rgb(255, 241, 132);
-$dp: rgb(66, 148, 255);
-$dp: rgb(141, 188, 249);
-$dp: rgb(255, 101, 101);
-
-
-
-
-
-
-
-
 @mixin flex($jc: center, $ai: center, $fd: column, $gp: 10px) {
     display: flex;
     justify-content: $jc;

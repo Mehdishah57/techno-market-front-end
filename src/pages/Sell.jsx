@@ -67,10 +67,6 @@ const Sell = () => {
 				if(!body.price) return setFormError("Price can't be empty");
 				if(!body.description) return setFormError("Description can't be empty");
 			}
-			// if(body.title.length < 8) return setFormError("Title can't be less than 8 Characters");
-			// if(body.description.length < 15) return setFormError("Description can't be less than 15 characters");
-			// if(Number.isNan(parseInt(body.price))) return setFormError("Price must be a number");
-			// if(parseInt(body.price) <= 10) return setFormError("Price must be more than Rs 10");
 			if (!body?.picture?.image1) return setFormError("Please select atleast one image");
 			setLoading(true);
 			const [, error] = await updateProduct(body);
