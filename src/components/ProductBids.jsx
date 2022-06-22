@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useContext } from 'react';
+import { UserContext } from '../global/UserContext';
 import fetchBids from './../services/fetchBids';
 import BidItem from './BidItem';
-import Button from '@mui/material/Button';
 
 const ProductBids = ({ productId, tempBidItem }) => {
   const [bids, setBids] = useState([]);
   const [showTempBid, setShowTempBid] = useState(true);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber] = useState(1);
   const [pageSize] = useState(3);
+  const [user, setUser] = useContext(UserContext);
 
   const fetchProductBids = useRef();
   const updateBid = useRef();
@@ -20,7 +21,6 @@ const ProductBids = ({ productId, tempBidItem }) => {
 
   updateBid.current = (tempBidItem) => {
     if(!tempBidItem?.userId) return;
-    if(!bids.length) return
     let temp = bids.filter(item => item.userId !== tempBidItem.userId);
     temp.push(tempBidItem);
     setBids(temp);
@@ -37,6 +37,8 @@ const ProductBids = ({ productId, tempBidItem }) => {
 
   const deleteBids = async(id) => {
     let temp = bids.filter(bid => bid._id !== id);
+    let tmp = user.placedBids.filter(item => item.userId !== tempBidItem.userId);
+    setUser({ ...user, placedBids:tmp })
     setBids(temp);
   }
 

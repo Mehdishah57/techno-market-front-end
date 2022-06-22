@@ -14,7 +14,8 @@ const UserProvider = ({ children }) => {
     const token = localStorage.getItem("fyptoken");
     if (!token) return;
     const [data, error] = await refreshUser(token);
-    if (!error) setUser({ ...data });
+    console.log(data)
+    if (!error) setUser(data);
     if(!error) return socket.emit("joinMyId",data._id);
     localStorage.removeItem("fyptoken");
   }
@@ -22,6 +23,11 @@ const UserProvider = ({ children }) => {
   useEffect(()=>{
     socket.off("bid-recieved").on("bid-recieved", data => {
       toast.success(`${data.by.name} placed a bid of ${data.price} on ${data.product}`,{duration:6000})
+      let bid = data.data;
+		  let temp = [...user.recievedBids];
+      temp = temp.filter(item => item.productId?._id !== bid.productId?._id)
+		  temp.push(bid);
+		  setUser({...user, recievedBids: temp})
     })
   
     socket.off("notification").on('notification', (data)=>{

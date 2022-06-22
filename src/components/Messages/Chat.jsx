@@ -126,7 +126,7 @@ const Chat = () => {
           </div>)}
           <div ref={divRef}></div>
       </div>
-      <div className='message-input'>
+      <div style={{}} className='message-input'>
         <TextField
           margin="dense"
           id="name"

@@ -7,13 +7,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 
 import "../styles/user-nav.scss";
 
 const UserNav = () => {
 	const navigate = useNavigate();
 
-	const [, setUser] = useContext(UserContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const handleLogout = () => {
 		navigate("/login");
@@ -47,9 +49,101 @@ const UserNav = () => {
 					alignItems="center" 
 					flexDirection="row"
 					gap="10px"
+					position='relative'
+					
 				>
 				<FavoriteBorderOutlinedIcon />
 				Favourites
+					{user.favourites?.length? <Box 
+						position='absolute'
+						backgroundColor="red"
+						padding="2px"
+						height="20px"
+						width="20px"
+						display='flex'
+						justifyContent='center'
+						alignItems='center'
+						color='white'
+						fontWeight="bold"
+						borderRadius='50%'
+						right='10px'
+						>
+						
+						{user.favourites.length}
+					</Box>: null}
+				</Box>
+			</Box>
+			<Box 
+				onClick={()=>navigate("/profile/my-ads")} 
+				width='100%' padding='10px' 
+				borderBottom='1px solid black'
+				className="usernav-menu-item"
+
+			>
+				<Box 
+					display='flex' 
+					justifyContent="flex-start" 
+					alignItems="center" 
+					flexDirection="row"
+					gap="10px"
+				>
+				<CategoryOutlinedIcon />
+				My Ads
+				</Box>
+			</Box>
+			<Box 
+				onClick={()=>navigate("/profile/bids")} 
+				width='100%' padding='10px' 
+				borderBottom='1px solid black'
+				className="usernav-menu-item"
+
+			>
+				<Box 
+					display='flex' 
+					justifyContent="flex-start" 
+					alignItems="center" 
+					flexDirection="row"
+					gap="10px"
+					position="relative"
+				>
+				<PaidOutlinedIcon />
+				Bids
+				{user.placedBids?.length? <Box 
+						position='absolute'
+						backgroundColor="green"
+						padding="2px"
+						height="20px"
+						width="90px"
+						display='flex'
+						justifyContent='center'
+						alignItems='center'
+						color='white'
+						fontSize="13px"
+						fontWeight="bold"
+						borderRadius='10px'
+						right='10px'
+						>
+						
+						Placed: {user.placedBids.length}
+					</Box>: null}
+					{user.recievedBids?.length? <Box 
+						position='absolute'
+						backgroundColor="red"
+						padding="2px"
+						height="20px"
+						width="90px"
+						display='flex'
+						justifyContent='center'
+						alignItems='center'
+						color='white'
+						fontSize="13px"
+						fontWeight="bold"
+						borderRadius='10px'
+						right='120px'
+						>
+						
+						Recieved: {user.recievedBids.length}
+					</Box>: null}
 				</Box>
 			</Box>
 			<Box 

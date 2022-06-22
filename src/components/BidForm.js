@@ -13,7 +13,7 @@ const BidForm = ({ product, tempBidItem, setTempBidItem }) => {
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(false);
-	const [user] = useContext(UserContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const handleBid = async (e) => {
 		if (success) setSuccess(false);
@@ -30,9 +30,14 @@ const BidForm = ({ product, tempBidItem, setTempBidItem }) => {
 		if (data) {
 			setSuccess(true)
 			setTempBidItem(data)
+			let temp = [...user.placedBids];
+			temp = temp.filter(item => item.productId?._id !== data.productId._id)
+			temp.push(data);
+			setUser({ ...user, placedBids:temp })
 			socket.emit("bid-event", {
 				by: { _id: user._id, name: user.name },
-				to: product.owner._id, price: bid, product: product.title
+				to: product.owner._id, price: bid, product: product.title,
+				data
 			});
 		}
 		else if (error) setError(true);
