@@ -43,7 +43,15 @@ const ProductDetail = () => {
 	return (
 		<div className="product-wrapper">
 			<div className="back" onClick={handleBack}><ArrowBackIcon />Back</div>
-			<Box display='flex' justifyContent='center' alignItems='center' width='50%' maxWidth='590px'>
+			<Box 
+				display='flex' 
+				justifyContent='center' 
+				overflow='hidden' 
+				alignItems='center' 
+				width='50%' 
+				maxWidth='590px' 
+				maxHeight='400px'
+			>
 				<ProductImages product={product} />
 			</Box>
 			<div className="title">{product.title}</div>
