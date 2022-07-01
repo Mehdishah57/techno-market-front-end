@@ -18,21 +18,19 @@ import "./App.scss";
 const App = () => {
   return (
     <UserProvider>
-      <BidProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/messages/*" element={<RequireAuth Level={2} Element={Messages} />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/sell" element={<RequireAuth Level={2} Element={Sell} />} />
-          <Route path="/sell/:id" element={<RequireAuth Level={2} Element={Sell} />} />
-          <Route path="/profile/*" element={<RequireAuth Level={2} Element={Profile} />} />
-          <Route path="/verify" element={<RequireAuth Level={1} Element={Verify} />} />
-          <Route path="/home/*" element={<Home />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
-          <Route path="/" element={<Navigate to="/home" />} />
-        </Routes>
-      </BidProvider>
+      <Navbar />
+      <Routes>
+        <Route path="/messages/*" element={<RequireAuth Level={2} Element={Messages} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/sell" element={<RequireAuth Level={2} Element={Sell} />} />
+        <Route path="/sell/:id" element={<RequireAuth Level={2} Element={Sell} />} />
+        <Route path="/profile/*" element={<RequireAuth Level={2} Element={Profile} />} />
+        <Route path="/verify" element={<RequireAuth Level={1} Element={Verify} />} />
+        <Route path="/home/*" element={<Home />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+      </Routes>
     </UserProvider>
   );
 }

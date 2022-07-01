@@ -36,19 +36,18 @@ const Chat = () => {
   }
 
   clearNotifications.current = () => {
-    console.log(chat)
-    if(!user.notifications) return;
+    if (!user.notifications) return;
     let otherUser = chat?.idOne?._id?.toString() === user._id ? chat?.idTwo?._id?.toString() : chat?.idOne?._id?.toString();
-    if(!otherUser) return;
+    if (!otherUser) return;
     let messageByThisUser = user.notifications.find(item => item.id === otherUser);
-    if(!messageByThisUser) return;
+    if (!messageByThisUser) return;
     let temp = user.notifications.filter(item => item.id !== otherUser);
-    setUser({...user, notifications:temp});
+    setUser({ ...user, notifications: temp });
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     clearNotifications.current()
-  },[chat])
+  }, [chat])
 
   useEffect(() => {
     fetchChat.current();
@@ -83,16 +82,16 @@ const Chat = () => {
     }
   }, [chat])
 
-  useLayoutEffect(()=>{
-    setTimeout(()=>divRef.current?.scrollIntoView({behaviour:"smooth"}),2000)
-  },[])
+  useLayoutEffect(() => {
+    setTimeout(() => divRef.current?.scrollIntoView({ behaviour: "smooth" }), 2000)
+  }, [])
 
   // useEffect(()=>{
   //   divRef.current?.scrollIntoView({behaviour:"smooth"})
   // },[chat])
 
   const scrollToDown = () => {
-    divRef.current?.scrollIntoView({behaviour:"smooth"})
+    divRef.current?.scrollIntoView({ behaviour: "smooth" })
   }
 
   const handleSubmit = async () => {
@@ -104,13 +103,52 @@ const Chat = () => {
     setMessage("");
   }
 
-  if (loading) return <div style={{height:"80vh"}} className="chat-wrapper">
+  let otherUser = chat?.idOne?._id?.toString() === user._id ? chat?.idTwo : chat?.idOne;
+
+
+  if (loading) return <div style={{ height: "80vh" }} className="chat-wrapper">
     <CircularProgress thickness={4} />
   </div>
   return (
     <div className="chat-wrapper">
       <Toaster />
-      <div className='text-wrapper'>
+      <div style={{width: '100%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
+        <Avatar sx={{height: 50, width: 50, marginRight: '10px'}} alt={otherUser.name} src={otherUser?.image?.url} />
+        {otherUser.name}
+      </div>
+      <div className="div1">
+      {chat.messages.map((item, index) => item.by === user._id ?
+          <div className='message-item'>
+            <Avatar alt={user.name} src={user?.image?.url} />
+            <div key={index} className="my">
+              {item.message}
+            </div>
+            {index === chat.messages.length-1 ? scrollToDown(): null}
+          </div> :
+          <div className='message-item-2'>
+            <div key={index} className="his">{item.message}</div>
+            <Avatar alt={user.name} src={user._id === chat.idOne._id ? chat.idTwo?.image?.url : chat.idOne?.image?.url} />
+            {index === chat.messages.length-1 ? scrollToDown(): null}
+          </div>)}
+          <div ref={divRef}></div>
+      </div>
+      <div className="div2">
+        <div style={{}} className='message-input'>
+          <TextField
+            margin="dense"
+            id="name"
+            value={message}
+            label="Send a message"
+            type="text"
+            onChange={e => setMessage(e.currentTarget.value)}
+            fullWidth
+            variant="filled"
+            autoComplete='off'
+          />
+          <Button onClick={handleSubmit} sx={{ height: "100%" }} variant='contained'><SendIcon /></Button>
+        </div>
+      </div>
+      {/* <div className='text-wrapper'>
         {chat.messages.map((item, index) => item.by === user._id ?
           <div className='message-item'>
             <Avatar alt={user.name} src={user?.image?.url} />
@@ -139,7 +177,7 @@ const Chat = () => {
           autoComplete='off'
         />
         <Button onClick={handleSubmit} sx={{ height: "100%" }} variant='contained'><SendIcon /></Button>
-      </div>
+      </div> */}
     </div>
   )
 }

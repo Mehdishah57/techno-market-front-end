@@ -1,14 +1,59 @@
 @import "../../../base";
 
 .chat-wrapper{
-    @include flex();
+    // @include flex();
     width: auto;
-    padding: 10px;
-    overflow: auto;
-    // max-height: 80vh;
+    padding: 10px; 
+    overflow: hidden;
+
+    .div1{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 65vh;
+        overflow-y: auto;
+        
+        .message-item-2{
+            @include flex($fd: row);
+            align-self: flex-end;
+            margin: 5px;
+        }
+
+        .message-item{
+            @include flex($fd: row);
+            align-self: flex-start;
+            margin: 5px;
+        }
+
+        .his{
+            align-self: end;
+            border: 1px solid $blue;
+            padding: 5px;
+            word-wrap: break-word;
+            border-radius: 10px;
+        }
+    
+        .my{
+            align-self: start;
+            background: $blue;
+            padding: 5px;
+            word-wrap: break-word;
+            color: white;border-radius: 10px;
+        }
+    }
+    .div2{
+        width: 100%;
+        height: 10vh;
+
+        .message-input{
+            @include flex($fd:row);
+            width: 100%;
+            height: 50px;
+        }
+    }
 
     .text-wrapper{
-        @include flex();
+        // @include flex();
         width: 100%;
 
         .message-item-2{

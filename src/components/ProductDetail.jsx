@@ -17,16 +17,18 @@ import "../styles/productdetails.scss";
 
 const ProductDetail = () => {
 	const [product, setProduct] = useState({});
+	const [loading, setLoading] = useState(true);
 	const [open, setOpen] = useState(false);
-	const [tempBidItem, setTempBidItem] = useState({});
 	const [user] = useContext(UserContext);
 	const fetchProduct = useRef();
 
 	const { id } = useParams();
 
 	fetchProduct.current = async () => {
+		setLoading(true)
 		const [data, error] = await fetchProductyById(id);
 		if (!error) setProduct(data)
+		setLoading(false);
 	}
 
 	const navigate = useNavigate();
@@ -37,7 +39,7 @@ const ProductDetail = () => {
 		fetchProduct.current();
 	}, [])
 
-	if (!product?._id) return <div style={{ height: "80vh" }} className="product-wrapper">
+	if (loading) return <div style={{ height: "80vh" }} className="product-wrapper">
 		<CircularProgress thickness={4} />
 	</div>
 	return (
@@ -58,9 +60,7 @@ const ProductDetail = () => {
 			<div className="price">RS: {product.price}</div>
 			<div className="description">{product.description}</div>
 			{user?._id && <BidForm
-				product={product}
-				tempBidItem={tempBidItem}
-				setTempBidItem={setTempBidItem} />}
+				product={product} />}
 			<div className="seller-name">Seller: {product.owner.name}</div>
 			{user?._id && product?.owner?._id !== user._id && <div className="actions">
 				<div className="icon-wrapper">
@@ -70,7 +70,7 @@ const ProductDetail = () => {
 					<MessageIcon fontSize="large" />
 				</div>
 			</div>}
-			<ProductBids productId={product._id} tempBidItem={tempBidItem} />
+			<ProductBids productId={product._id} />
 			<Map longitude={product.location.lng} latitude={product.location.lat} />
 			<FormDialog
 				open={open}

@@ -8,7 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ErrorIcon from '@mui/icons-material/Error';
 import socket from '../socket/socket';
 
-const BidForm = ({ product, tempBidItem, setTempBidItem }) => {
+const BidForm = ({ product }) => {
 	const [bid, setBid] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
@@ -29,7 +29,6 @@ const BidForm = ({ product, tempBidItem, setTempBidItem }) => {
 		const [data, error] = await bidItem(bid, product._id);
 		if (data) {
 			setSuccess(true)
-			setTempBidItem(data)
 			let temp = [...user.placedBids];
 			temp = temp.filter(item => item.productId?._id !== data.productId._id)
 			temp.push(data);

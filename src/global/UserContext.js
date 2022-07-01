@@ -25,7 +25,7 @@ const UserProvider = ({ children }) => {
       toast.success(`${data.by.name} placed a bid of ${data.price} on ${data.product}`,{duration:6000})
       let bid = data.data;
 		  let temp = [...user.recievedBids];
-      temp = temp.filter(item => item.productId?._id !== bid.productId?._id)
+      temp = temp.filter(item => item._id !== bid._id)
 		  temp.push(bid);
 		  setUser({...user, recievedBids: temp})
     })

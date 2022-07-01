@@ -2,14 +2,12 @@ import React, { useState, useContext} from 'react'
 import Box from "@mui/material/Box";
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { BidContext } from '../../global/BidContext';
 import { UserContext } from '../../global/UserContext';
 import ProfileBidItem from './ProfileBidItem';
 import BidItem from '../BidItem';
 
 const Bids = () => {
   const [value, setValue] = useState('placedBids');
-  const [bids, setBids, loading] = useContext(BidContext);
   const [user] = useContext(UserContext);
 
   const handleChange = (event) => setValue(event.target.value);
