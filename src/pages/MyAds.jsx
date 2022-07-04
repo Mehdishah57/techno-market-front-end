@@ -4,15 +4,19 @@ import { Toaster, toast } from 'react-hot-toast';
 import MyCard from './../components/MyAds/MyCard';
 import deleteAd from './../services/deleteAd';
 import AlertDialog from './../components/AlertDialog';
+import Box from "@mui/material/Box";
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import activation from '../services/productActivation';
 
 import "../styles/MyAds/myads.scss";
-import activation from '../services/productActivation';
 
 const MyAds = () => {
   const [ads, setAds] = useState([]);
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
   const fetchAds = useRef(null);
+  const navigate = useNavigate();
 
   fetchAds.current = async() => {
     const [data, error] = await getMyAds();
@@ -46,6 +50,9 @@ const MyAds = () => {
   return (
     <div className='myads-wrapper'>
       <Toaster />
+      <Box display='flex' justifyContent='center' alignItems='center' fontSize="18px" width="100%" textAlign="center" margin="10px" fontWeight='bold'>
+            <ArrowBackIcon onClick={() => navigate(-1)} style={{ marginRight: 5, cursor: 'pointer' }}></ArrowBackIcon> My Ads
+            </Box>
       <AlertDialog 
         open={open} 
         setOpen={setOpen} 

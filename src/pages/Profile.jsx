@@ -8,6 +8,7 @@ import NameSection from '../components/Profile/NameSection';
 import Bids from '../components/Profile/Bids';
 
 import "../styles/profile.scss";
+import ChangePhone from './ChangePhone';
 
 const Profile = () => {
 	// const [user] = useContext(UserContext);
@@ -21,6 +22,7 @@ const Profile = () => {
 				<Route path='/bids' element={<Bids />} />
 				<Route path='my-ads' element={<MyAds />}/>
 				<Route path='favourites' element={<Favourites />} />
+				<Route path='change-phone' element={<ChangePhone />} />
 			</Routes>
 		</div>
 	)

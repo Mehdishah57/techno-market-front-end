@@ -4,16 +4,21 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { UserContext } from '../../global/UserContext';
 import ProfileBidItem from './ProfileBidItem';
-import BidItem from '../BidItem';
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Bids = () => {
   const [value, setValue] = useState('placedBids');
   const [user] = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleChange = (event) => setValue(event.target.value);
 
   return (
     <Box width='100%' display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
+       <Box display='flex' justifyContent='center' alignItems='center' fontSize="18px" width="100%" textAlign="center" margin="10px" fontWeight='bold'>
+            <ArrowBackIcon onClick={() => navigate(-1)} style={{ marginRight: 5, cursor: 'pointer' }}></ArrowBackIcon> Bids
+            </Box>
       <Box width="90%" maxWidth='440px'>
         <Select
           labelId="demo-simple-select-label"

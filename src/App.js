@@ -11,7 +11,6 @@ import RequireAuth from './utils/RequireAuth';
 import Verify from './pages/Verify';
 import Sell from './pages/Sell';
 import Navbar from "./components/Navbar";
-import BidProvider from "./global/BidContext";
 
 import "./App.scss";
 

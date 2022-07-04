@@ -9,6 +9,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
 import "../styles/user-nav.scss";
 
@@ -178,6 +179,23 @@ const UserNav = () => {
 				>
 				<AddCircleOutlineOutlinedIcon />
 				Post an ad
+				</Box>
+			</Box>
+			<Box 
+				onClick={()=>navigate("/profile/change-phone")} 
+				width='100%' padding='10px' 
+				borderBottom='1px solid black'
+				className="usernav-menu-item"
+			>
+				<Box 
+					display='flex' 
+					justifyContent="flex-start" 
+					alignItems="center" 
+					flexDirection="row"
+					gap="10px"
+				>
+				<LocalPhoneIcon />
+				Change Phone
 				</Box>
 			</Box>
 			<Box 

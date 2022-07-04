@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import verify from "../services/verify";
 import sendCode from "../services/sendCode";
 import { Toaster, toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import "../styles/verify.scss";
 
@@ -13,7 +13,7 @@ const Verify = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +26,8 @@ const Verify = () => {
       return
     }
     localStorage.setItem("fyptoken", data);
-    navigate("/profile", { replace: true });
+    window.location = "/profile";
+    // navigate("/profile", { replace: true });
   };
 
   const handleResend = async () => {

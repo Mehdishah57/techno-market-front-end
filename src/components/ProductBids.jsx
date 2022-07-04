@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useLayoutEffect, useContext } from 'react';
-import { BidContext } from '../global/BidContext';
 import { UserContext } from '../global/UserContext';
 import fetchBids from './../services/fetchBids';
 import BidItem from './BidItem';
@@ -14,7 +13,7 @@ const ProductBids = ({ productId }) => {
 
   fetchProductBids.current = async () => {
     const [data, error] = await fetchBids(pageNumber, pageSize, productId);
-    if (!error) setBids([...bids,...data]);
+    if (!error) setBids(data);
     if (error) console.log(error.message)
   }
 

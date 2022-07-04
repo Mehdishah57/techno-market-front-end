@@ -29,7 +29,7 @@ const ListItem = ({ item }) => {
 		<div onClick={handleClick} className="list-item-wrapper">
 			<Avatar alt={other.name} src={other.image?.url} />
 			<div className='name'>{other.name}</div>
-			<div className='message'>{item.messages[0]?.message}</div>
+			<div className='message'>{item.messages[0]?.message?.slice(0,18)}{item.messages[0]?.message.length > 18 ? "...": ""}</div>
 			{count ? <div className="count">{count}</div>: null}
 		</div>
 	)

@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Toaster } from "react-hot-toast";
 import { Carousel } from "react-responsive-carousel";
 import banner from "../../assets/b1.jpg";
 import Box from "@mui/material/Box";
 import HomePageControl from "../HomePageControl";
 import ProductItem from "../ProductItem";
-import getCategoryWise from "../../services/getCategoryWise";
-import getFreshProducts from "../../services/getFreshProducts";
 import ProductSkeletonList from "../ProductSkeletonList";
 import CategoryFilterSection from "./CategoryFilterSection";
 import SearchSection from "../SearchSection";
+import Footer from "../../components/Footer";
 
 const MainHome = ({
   filters,
@@ -188,6 +187,7 @@ const MainHome = ({
           )}
         </Box>
       </Box>
+      <Footer />
     </div>
   );
 };
