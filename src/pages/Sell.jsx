@@ -12,11 +12,10 @@ import SimpleBackdrop from '../components/BackDrop';
 import Box from '@mui/material/Box';
 import { Form, Formik } from 'formik';
 import { productSchema } from "../schemas/product"
+import getMyAd from '../services/getMyAd';
+import updateProduct from '../services/updateProduct';
 
 import "../styles/Sell/sell.scss";
-import getMyAd from '../services/getMyAd';
-import { updateProductSchema } from '../schemas/updateProduct';
-import updateProduct from '../services/updateProduct';
 
 const Sell = () => {
 	const [state, setState] = useState({});
@@ -40,7 +39,10 @@ const Sell = () => {
 		try {
 			setLoading(true);
 			let body = { ...values, ...state };
-			if (!body?.picture?.image1) return toast.error("Please select atleast one image");
+			if (!body?.picture?.image1){ 
+				setLoading(false);
+				return toast.error("Please select atleast one image");
+			}
 			const [data, error] = await addProduct(body);
 			if (data) return navigation("/profile/my-ads");
 			toast.error(error.response?.data || "An Error occured while posting ad 😒😒😒😒");

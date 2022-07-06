@@ -25,7 +25,7 @@ const schema = yup.object({
         .max(99, "Country code must be 2 digits")
         .required("Country code is required"),
     phoneNumber: yup
-        .string()
+        .number()
         .min(1000000000, "Phone Number must be 10 Characters")
         .max(9999999999, "Phone Number must be 10 Characters")
         .required("Please Provide a phone Number")
