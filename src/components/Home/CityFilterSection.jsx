@@ -39,7 +39,7 @@ const CityFilterSection = ({ filters, setFilters, loading, setLoading }) => {
 						onChange={handleChange}
 					>
 						<MenuItem value={undefined}>All Pakistan</MenuItem>
-						{cities.map(itm => <MenuItem value={itm._id}>{itm.city}</MenuItem>)}
+						{cities.sort((a,b)=>a.city.localeCompare(b.city)).map(itm => <MenuItem value={itm._id}>{itm.city}</MenuItem>)}
 					</Select>
 				</FormControl>
 			</Box>

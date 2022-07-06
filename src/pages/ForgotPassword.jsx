@@ -127,7 +127,6 @@ const ForgotPassword = () => {
 							onChange={(e) => setMethod(e.currentTarget.value)}
 							name="radio-buttons-group"
 						>
-							<FormControlLabel value="email" control={<Radio />} label="Send Code to Email" />
 							<FormControlLabel value="phoneNumber" control={<Radio />} label="Send Code to Phone Number" />
 						</RadioGroup>
 					</FormControl>

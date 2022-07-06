@@ -21,13 +21,13 @@ const schema = yup.object({
             "Password must contain One Uppercase, One Lowercase and one Digit i:e Kitty547"),
     countryCode: yup
         .number()
-        .min(92, "Country code must be 2 digits")
-        .max(92, "Country code must be 2 digits")
+        .min(10, "Country code must be 2 digits")
+        .max(99, "Country code must be 2 digits")
         .required("Country code is required"),
     phoneNumber: yup
         .string()
-        .min(11, "Phone Number must be 11 Characters")
-        .max(11, "Phone Number must be 11 Characters")
+        .min(1000000000, "Phone Number must be 10 Characters")
+        .max(9999999999, "Phone Number must be 10 Characters")
         .required("Please Provide a phone Number")
 });
 
