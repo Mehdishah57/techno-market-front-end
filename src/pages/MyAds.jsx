@@ -8,21 +8,24 @@ import Box from "@mui/material/Box";
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import activation from '../services/productActivation';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import "../styles/MyAds/myads.scss";
 
 const MyAds = () => {
   const [ads, setAds] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
   const fetchAds = useRef(null);
   const navigate = useNavigate();
 
   fetchAds.current = async() => {
+    setLoading(true)
     const [data, error] = await getMyAds();
-    console.log(data)
-    if(!error) return setAds(data);
-    toast.error(error.response.data);
+    if(error) toast.error(error.response.data);
+    else setAds(data);
+    setLoading(false);
   }
 
   useEffect(()=>{
@@ -47,6 +50,9 @@ const MyAds = () => {
 
   const handleDelete = (id) => {setId(id);setOpen(true);}
 
+  if(loading) return <div className='myads-wrapper'>
+    <CircularProgress thickness={4} />
+  </div>
   return (
     <div className='myads-wrapper'>
       <Toaster />

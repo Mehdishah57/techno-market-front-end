@@ -119,7 +119,7 @@ const Chat = () => {
   let otherUser = chat?.idOne?._id?.toString() === user._id ? chat?.idTwo : chat?.idOne;
 
 
-  if (loading) return <div style={{ height: "80vh" }} className="chat-wrapper">
+  if (loading) return <div style={{ height: "80vh", textAlign: 'center' }} className="chat-wrapper">
     <CircularProgress thickness={4} />
   </div>
   return (
